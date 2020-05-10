@@ -10,7 +10,7 @@ Multiagent environments, where agents compete against each other, are called **g
 
 The possible states of a game form a game tree, where the nodes are the states and the edges are the moves. The leaves of the tree are the terminal states, and we can attach to them the output of the utility function. In a 2-player zero-sum game, since the sum of the players’ utilities will always be the same, we can show the utility value of just one player.
 
-![MIN-MAX tree](images/min-max.png)
+<p align="center"><img src="images/minimax.png" title="Minimax tree"/></p>
 
 ## The minimax algorithm
 Our main goal is to find an optimal strategy for a player, which means finding the best set of moves a player can make against an opponent that is also doing the best they can. We can think about that as a player trying to always maximizing his own utility, while the opponent is trying the opposite: minimizing the other player’s utility.

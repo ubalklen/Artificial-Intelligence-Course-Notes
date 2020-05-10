@@ -17,7 +17,7 @@ The gist of the process is the construction of the algorithm that hopefully will
 
 One example of a model is the **linear regression**. In such a model, all the hypothesis have the following format:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?h_w(\vec x) = \vec w \cdot \vec x = \sum_{i=0}^n w_i x_{i}"/></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?h_w(\vec%20x)%20=%20\vec%20w%20\cdot%20\vec%20x%20=%20\sum_{i=0}^n%20w_i%20x_{i}"/></p>
 
 where *h<sub>w</sub>* is the hypothesis function, <img src="https://latex.codecogs.com/svg.latex?\vec x = (x_0, ... , x_n)" /> is the input vector represented by *n* features, <img src="https://latex.codecogs.com/svg.latex?\vec w = (w_0, ... , w_n)" /> is the vector of weights and *x<sub>0</sub> = 1* by definition.
 
