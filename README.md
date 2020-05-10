@@ -19,5 +19,5 @@ I've not covered the parts of the course involving logic.
 
 As a copyright aside, the notes are heavily based on the textbook used in the course (Artificial Intelligence: A Modern Approach, 3rd Edition, by Stuart Russel and Peter Norvig). In fact, some of the notes' paragraphs are literal copies of passages of the book. The LaTeX formulas have been generated using https://latex.codecogs.com. Other references are cited in the notes. All those references have been done in good faith and for educational purposes only.
 
-This work is licensed under the [MIT License](license).
+This work is licensed under the [MIT License](LICENSE).
 
