@@ -1,4 +1,4 @@
-# Optimizing Functions
+# Optimization
 Finding the minimum or maximum value of a function is sometimes necessary for an AI agent. The process of finding the best value of a function is called **optimization** and the function to be optimized is known as **objective function**. The domain of the objective function is sometimes referred as a set of **states** in AI literature.
 
 In this note, we will focus on finding the maximum value of a function, but each of the described methods can be easily converted to search the minimum value instead.
