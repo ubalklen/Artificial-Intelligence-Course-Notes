@@ -45,7 +45,7 @@ Still, there is the question as to whether we should be less restrictive. In the
 
 But if we follow this mindset, we will probably find an hypothesis that deviates from the unknown function, even if its loss is low. This happens because the more complex hypothesis will blindly fits to the training set and lose any generalization power along the way. This problem is known as **overfitting**. It also occurs the other way. If our hypothesis can't get any closer to the training set, we have an **underfitting** issue instead. The following figure, taken from [course slides](https://www.coursera.org/learn/machine-learning) by Andrew Ng, illustrates these concepts.
 
-<p align="center"><img src="images/overfitting.png" /></p>
+<p align="center"><img src="images/overfitting.png" title="Under and overfitting"/></p>
 
 The important lesson here is that reducing the loss in the training set is just a proxy to what we really want, but it's not our main goal. In the end, we want an approximation of the unknown function.
 
@@ -80,7 +80,7 @@ To add robustness to this process, we may split our dataset in *k* parts at rand
 
 Let's see an example of a decision tree. In order to predict if someone will go to a certain restaurant, we can ask questions like "How many patrons are there at the moment?" or "Is the person hungry?" until we collect enough information to say "Yes" (the person is going to the restaurant) or "No" (the person isn't).
 
-<p align="center"><img src="/images/decision_tree.png" /></p>
+<p align="center"><img src="/images/decision_tree.png" title="Decision tree" /></p>
 
 As we saw when talking about overfitting, it's important that the hypothesis obtained from the model accomodates the training set but not to the point of being overly complex. We can apply this concept to the construction of a decision tree by searching the smallest tree that is consistent with the data. The exact answer is infeasible to calculate—even in the binary case, there are 2<sup>2<sup>n</sup></sup> possible trees--but clever heuristics exist.
 
@@ -145,17 +145,17 @@ If we think <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> is a fixe
 
 Now, we solve our **maximum likelihood estimation (MLE)** algorithm:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}\vec{w}_{\text{MLE}}&=\operatorname*{argmax}_{\vec{w}}P(S|\vec{w})\\&=\operatorname*{argmax}_{\vec{w}}\left[\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i})\right]\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m\log P(y_i|\vec{x_i},\vec{w})+\sum_{i=0}^m \log P(\vec{x_i})\right]&&\text{taking%20the%20logaritihm}\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m \log P(y_i|\vec{x_i},\vec{w})\right]&&\text{dropping%20terms%20that%20don't%20depend%20on}\,\vec{w}\\&=\operatorname*{argmax}_{\vec{w}}\left\{\sum_{i=0}^m\log\left[\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2 \right)\right]\right\}\\&=\operatorname*{argmax}_{\vec{w}}\left[-\sum_{i=0}^m (y_i-h_w(\vec{x_i}))^2 \right]&&\text{dropping%20terms%20that%20don't%20depend%20on}\,\vec{w}%20\\&=\operatorname*{argmin}_{\vec{w}}\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2&&\text{converting%20argmax%20into%20argmin}\\\end{align*}" /></p>
+<p align="center"><img src="images\mle.svg" title="Maximum Likelihood Estimation (MLE)"/></p>
 
 So, to find the best set of weights, we pick the one that minimizes the sum of squared errors, which is exactly the same thing as we did in our original presentation of the linear regression.
 
 Moreover, if we don't consider <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> a fixed value, but a random variable with a prior probability distribution, Bayesian inference may be used to obtain a posterior distribution. This suggest an alternative for the maximum likelihood algorithm, namely the **maximum a posteriori (MAP)** algorithm. We now want the <img src="https://latex.codecogs.com/svg.latex?\vec{w}_{\text{MAP}}" /> with the maximum posterior probability <img src="https://latex.codecogs.com/svg.latex?P(\vec{w}|S)" />. Considering <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> follows a [multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) with *μ = 0* and *Σ = (2λ)<sup>-1</sup>I*, where *I* is the *n+1* identity matrix, we have:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}P(\vec{w})&=\mathcal{N}(0,(2\lambda)^{-1}I)=\frac{1}{\sqrt{(2\lambda)^{-n}(2\pi)^n}}\exp\left(-\lambda\sum_{j=0}^nw_j^2\right)\\\vec{w}_{\text{MAP}}&=\operatorname*{argmax}_{\vec{w}}P(\vec{w}|S)\\&=\operatorname*{argmax}_{\vec{w}}\frac{P(S|\vec{w})P(\vec{w})}{P(S)}&&\text{Bayes'%20rule}\\&=\operatorname*{argmax}_{\vec{w}}\left[\log\frac{P(S|\vec{w})}{P(S)}+\log P(\vec{w})\right]&&\text{taking%20the%20logarithm}\\&=\operatorname*{argmax}_{\vec{w}}\left[\log P(S|\vec{w})+\log P(\vec{w})\right]&&\text{dropping%20term%20that%20doesn't%20depend%20on}\,\vec{w}\\&=\operatorname*{argmin}_{\vec{w}}\left[-\log P(S|\vec{w})-\log P(\vec{w})\right]&&\text{converting%20argmax%20into%20argmin}\end{align*}" /></p>
+<p align="center"><img src="images\map.svg" title="Maximum a Posteriori (MAP)" /></p>
 
 From the MLE, we know how to minimize <img src="https://latex.codecogs.com/svg.latex?-\log P(S|\vec{w})" />. Thus, if we plug the definition of <img src="https://latex.codecogs.com/svg.latex?P(\vec{w})" /> into the equation, we end up with:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\vec{w}_{\text{MAP}}=\operatorname*{argmin}_{\vec{w}}\left[\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2+\lambda\sum_{j=0}^n w_j^2\right]" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\vec{w}_{\text{MAP}}=\operatorname*{argmin}_{\vec{w}}\left[\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2+\lambda\sum_{j=0}^nw_j^2\right]" /></p>
 
 That is almost the exact same formula as the one we provided to compute regularized linear regression (the difference is that now we are also regularizing the intercept term).
 
