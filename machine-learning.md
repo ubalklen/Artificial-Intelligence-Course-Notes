@@ -19,17 +19,17 @@ One example of a model is the **linear regression**. In such a model, all the hy
 
 <p align="center"><img src="https://latex.codecogs.com/svg.latex?h_w(\vec%20x)%20=%20\vec%20w%20\cdot%20\vec%20x%20=%20\sum_{i=0}^n%20w_i%20x_{i}"/></p>
 
-where *h<sub>w</sub>* is the hypothesis function, <img src="https://latex.codecogs.com/svg.latex?\vec x = (x_0, ... , x_n)" /> is the input vector represented by *n* features, <img src="https://latex.codecogs.com/svg.latex?\vec w = (w_0, ... , w_n)" /> is the vector of weights and *x<sub>0</sub> = 1* by definition.
+where *h<sub>w</sub>* is the hypothesis function, <img src="https://latex.codecogs.com/svg.latex?\vec{x}=(x_0,...,x_n)" /> is the input vector represented by *n* features, <img src="https://latex.codecogs.com/svg.latex?\vec{w}=(w_0,...,w_n)" /> is the vector of weights and *x<sub>0</sub> = 1* by definition.
 
-If there is only one feature, than this formula can be geometrically interpreted the line <img src="https://latex.codecogs.com/svg.latex?w_0 + w_1 x_1" />. Since there is an infinite number possible lines, how do we find the one that represents the best hypothesis? Intuitively, it should be the one that fits best the data. One way to find that best hypothesis is to define a **loss function** (also known as **cost function**). The loss function will return the ammount of the error a hypothesis makes compared to the data. One type of loss function is the **L<sub>2</sub> loss function**, also known as **least squares error (LSE)**, and it's defined as follows:
+If there is only one feature, than this formula can be geometrically interpreted the line <img src="https://latex.codecogs.com/svg.latex?w_0+w_1x_1" />. Since there is an infinite number possible lines, how do we find the one that represents the best hypothesis? Intuitively, it should be the one that fits best the data. One way to find that best hypothesis is to define a **loss function** (also known as **cost function**). The loss function will return the ammount of the error a hypothesis makes compared to the data. One type of loss function is the **L<sub>2</sub> loss function**, also known as **least squares error (LSE)**, and it's defined as follows:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{L\textsubscript{2}Loss}(h_w)=\sum_{i=0}^m (y_i - h(\vec x_i))^2" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{L\textsubscript{2}Loss}(h_w)=\sum_{i=0}^m(y_i-h(\vec{x_i}))^2" /></p>
 
-where <img src="https://latex.codecogs.com/svg.latex?\vec x_i" /> is the i-th example of the traning set with *m+1* examples and <img src="https://latex.codecogs.com/svg.latex?y_i = y(\vec{x_i})" /> is the unknown function.
+where <img src="https://latex.codecogs.com/svg.latex?\vec x_i" /> is the i-th example of the traning set with *m+1* examples and <img src="https://latex.codecogs.com/svg.latex?y_i=y(\vec{x_i})" /> is the unknown function.
 
 Notice that the L<sub>2</sub> loss function encodes our intuition of finding the line that best fits the data. When the line gets far away from the training set, the loss is high. Conversely, the loss gets lows when the line gets closer to the training set.
 
-We now have an optimization problem: find the set of parameters <img src="https://latex.codecogs.com/svg.latex?\vec w" /> that minimizes the loss function. This optimization problem have different ways to be solved, some of them described in [another note](optimization.md). The particular problem of linear regression happen to have an analytical solution as well by equalling to zero the partial derivatives of the loss function with respect to the parameters. A more general approach that works for other models is the **gradient descent**.
+We now have an optimization problem: find the set of parameters <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> that minimizes the loss function. This optimization problem have different ways to be solved, some of them described in [another note](optimization.md). The particular problem of linear regression happen to have an analytical solution as well by equalling to zero the partial derivatives of the loss function with respect to the parameters. A more general approach that works for other models is the **gradient descent**.
 
 >**A new AI revolution?**
 >
@@ -61,9 +61,9 @@ The use of a test set is a good solution to identify if overfitting is ocurrying
 
 One way to incorporate this penalty is through **regularization**. With regularization, we change our loss function to not only increase when the hypothesis deviates from the traning set, but also when it gets more complex. In the case of the polinomial and linear regression, a way to quantify complexity is by evaluating the size of the weights (except the intercept term *w<sub>0</sub>*). The bigger they are, the more complex is the function. Then, a possible proposal of a regularized loss function is as following:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{RegularizedL\textsubscript{2}Loss}(h_w)=\sum_{i=0}^m (y_i-h_w(\vec x_i))^2 + \lambda\sum_{j=1}^n w_j^2" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{RegularizedL\textsubscript{2}Loss}(h_w)=\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2+\lambda\sum_{j=1}^nw_j^2" /></p>
 
-This function is the same as the original L<sub>2</sub> loss function we proposed, except by the last part, which is known as **regularization term** (also known as **penalty term**). The particular regularization term used here, <img src="https://latex.codecogs.com/svg.latex?\lambda\sum_{j=1}^n w_j^2" />, is called **L<sub>2</sub> penalty** (should not be confused with the L<sub>2</sub> loss function) and a linear regression model that uses it is known as **ridge regression**. The intercept w<sub>0</sub> is left out of the regularization term by convention. The parameter λ regulates how much regularization we want. If it's equal to 0, no regularization is performed, and only the original loss function is considered during the learning. As λ tends to infinite, the best hypothesis degenerates to <img src="https://latex.codecogs.com/svg.latex?h_w(\vec x) = w_0" />.
+This function is the same as the original L<sub>2</sub> loss function we proposed, except by the last part, which is known as **regularization term** (also known as **penalty term**). The particular regularization term used here, <img src="https://latex.codecogs.com/svg.latex?\lambda\sum_{j=1}^nw_j^2" />, is called **L<sub>2</sub> penalty** (should not be confused with the L<sub>2</sub> loss function) and a linear regression model that uses it is known as **ridge regression**. The intercept w<sub>0</sub> is left out of the regularization term by convention. The parameter λ regulates how much regularization we want. If it's equal to 0, no regularization is performed, and only the original loss function is considered during the learning. As λ tends to infinite, the best hypothesis degenerates to <img src="https://latex.codecogs.com/svg.latex?h_w(\vec{x})=w_0" />.
 
 ## Cross-Validation
 In the regularization section, we have been presented the parameter λ of the regularization term. But how do we choose the best λ? More generally, considering other models may have their own set of specific parameters, how do we pick the best parameters of a model?
@@ -86,7 +86,7 @@ As we saw when talking about overfitting, it's important that the hypothesis obt
 
 One of such heuristic is based on the fact that a decision tree will be small if it can separate the training set into groups of examples with uniform outputs right from the beginning. For example, if data shows that our potential restaurant patron will always go to the restaurant if she is hungry and will never go otherwise, we can choose "Are you hungry?" as the first and only question and will obtain a tree that is small and consistent with the data. In practice, we will rarely have the opportunity to make a perfect split like that, so we have to devise some way to evaluate the goodness of a split. We can do that using metrics such as **entropy** or **gini impurity**. The latter has the following formula:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?Gini\,impurity=\sum_{i} p_i*(1-p_i)" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?Gini\,impurity=\sum_ip_i*(1-p_i)" /></p>
 
 where *p<sub>i</sub>* is fraction of examples with output *i* in the current group.
 
@@ -100,11 +100,11 @@ Why combine many "dumber" decision trees instead of using one "smart" one from t
 ## Neural networks
 Another model, inspired by the neurons of the nervous system, is the (artificial) **neural network**. The biological neuron can be seen as a device that aggregates input signals and outputs some signal only if the inputs allow for a certain threshold to be reached. We can translate this ideia mathematically to form something like this:
 
-<p align="center"><img src=images/neuron.png /></p>
+<p align="center"><img src=images/neuron.png title="Neuron" /></p>
 
 The (artificial) neuron receives some inputs (*a<sub>0</sub>, a<sub>1</sub>, ..., a<sub>n</sub>*), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its architecure, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
 
-<p align="center"><img src=images/neural_network.png /></p>
+<p align="center"><img src=images/neural_network.png title="Neural network" /></p>
 
 An hypothesis is constructed using the neural network model by learning the weights that best fits some training set. This learning can be achieved by the **backpropagation** algorithm. In essence, backpropagation is gradient descent applied to neural networks. It calculates the partial derivatives of the loss function with respect to the weights of the last layer and than progagates that differentation all the way back to the first layer, using the **chain rule**. With these derivatives, gradient descent allows us to update all the weights in a direction that reduces the total loss.
 
@@ -126,32 +126,32 @@ Supervised methods requires a previously labeled dataset. But sometimes, the lab
 
 The learning process of k-means clustering uses a **expectation-maximization (E-M) algorithm**. First a number of clusters is previously defined. Then a **cluster point** is set at random for each. Each data point in the training set is appointed to the cluster represented by the nearest cluster point. Then the mean of the points in each cluster is calculated and become the new cluster point. The process repeats back-and-forth until convergence. The following figure shows the learning in a 2D space (extracted from "Pattern Recognition and Machine Learning" book by Christopher Bishop):
 
-<p align="center"><img src=images/k-means.png /></p>
+<p align="center"><img src=images/k-means.png title="K-means" /></p>
 
 ## Statistical Learning
 There's a link between Machine Learning and Statistics. Let's see how we can do supervised learning within the probability-statistic framework. The following calculations are based on Sean Holden's [course slides](https://www.cl.cam.ac.uk/teaching/1718/MLBayInfer/ml-bayes-18.pdf).
 
-Let <img src="https://latex.codecogs.com/svg.latex?S = \{(\vec{x}_0, y_0),...(\vec{x}_m, y_m)\}" /> be our training set. We assume the examples in the training set are generated according to some **probability distribution** *P(X,Y)*. If the examples are **independent and identically distributed (i.i.d.)**, we have the probability of the S as follows:
+Let <img src="https://latex.codecogs.com/svg.latex?S=\{(\vec{x}_0,y_0),...(\vec{x}_m,y_m)\}" /> be our training set. We assume the examples in the training set are generated according to some **probability distribution** *P(X,Y)*. If the examples are **independent and identically distributed (i.i.d.)**, we have the probability of the S as follows:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?P(S)=\prod_{i=0}^m P(\vec{x_i},y_i)" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?P(S)=\prod_{i=0}^mP(\vec{x_i},y_i)" /></p>
 
-We assume the unknown function is in the form of <img src="https://latex.codecogs.com/svg.latex?h_w(\vec x) = \vec w \cdot \vec x"/> and that each *y<sub>i</sub>* was sampled subject to a normally distributed error *ϵ<sub>i</sub>*, so <img src="https://latex.codecogs.com/svg.latex?y_i=h_w(\vec x)+\epsilon_i"/>. In this case, we have:
+We assume the unknown function is in the form of <img src="https://latex.codecogs.com/svg.latex?h_w(\vec{x})=\vec{w}\cdot\vec{x}"/> and that each *y<sub>i</sub>* was sampled subject to a normally distributed error *ϵ<sub>i</sub>*, so <img src="https://latex.codecogs.com/svg.latex?y_i=h_w(\vec{x})+\epsilon_i"/>. In this case, we have:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?P(y_i|\vec{x_i},\vec{w})=\mathcal{N}(h_w(\vec{x_i}),\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2 \right)" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?P(y_i|\vec{x_i},\vec{w})=\mathcal{N}(h_w(\vec{x_i}),\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2\right)" /></p>
 
 If we think <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> is a fixed vector, one way to solve our problem is to find the weights that maximize the probability of the training set, i.e we want the **maximum likelihood** <img src="https://latex.codecogs.com/svg.latex?P(S|\vec{w})" />. We can expand this term as follows:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}P(S|\vec{w})&=\prod_{i=0}^m P(\vec{x_i},y_i|\vec{w})\\&=\prod_{i=0}^m P(y_i|\vec{x_i},\vec{w})P(\vec{x_i}|\vec{w}) &&&& \text{conditional probability rule}\\&=\prod_{i=0}^m P(y_i|\vec{x_i},\vec{w})P(\vec{x_i}) &&&& \text{assuming}\,\vec{x_i}\, \text{doesn't depend on}\,\vec{w}\end{align*}" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}P(S|\vec{w})&=\prod_{i=0}^mP(\vec{x_i},y_i|\vec{w})\\&=\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i}|\vec{w})&&&&\text{conditional%20probability%20rule}\\&=\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i})&&&&\text{assuming}\,\vec{x_i}\,\text{doesn't%20depend%20on}\,\vec{w}\end{align*}" /></p>
 
 Now, we solve our **maximum likelihood estimation (MLE)** algorithm:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}\vec{w}_{\text{MLE}}&=\operatorname*{argmax}_{\vec{w}}P(S|\vec{w})\\&=\operatorname*{argmax}_{\vec{w}}\left[\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i})\right]\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m\log P(y_i|\vec{x_i},\vec{w})+\sum_{i=0}^m \log P(\vec{x_i})\right] && \text{taking the logaritihm}\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m \log P(y_i|\vec{x_i},\vec{w})\right] && \text{dropping terms that don't depend on}\,\vec{w}\\&=\operatorname*{argmax}_{\vec{w}}\left\{\sum_{i=0}^m\log\left[\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2 \right)\right] \right\}\\&=\operatorname*{argmax}_{\vec{w}}\left[-\sum_{i=0}^m (y_i-h_w(\vec{x_i}))^2 \right]&& \text{dropping terms that don't depend on}\,\vec{w} \\&=\operatorname*{argmin}_{\vec{w}}\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2&&\text{converting argmax into argmin} \\\end{align*}" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}\vec{w}_{\text{MLE}}&=\operatorname*{argmax}_{\vec{w}}P(S|\vec{w})\\&=\operatorname*{argmax}_{\vec{w}}\left[\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i})\right]\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m\log P(y_i|\vec{x_i},\vec{w})+\sum_{i=0}^m \log P(\vec{x_i})\right]&&\text{taking%20the%20logaritihm}\\&=\operatorname*{argmax}_{\vec{w}}\left[\sum_{i=0}^m \log P(y_i|\vec{x_i},\vec{w})\right]&&\text{dropping%20terms%20that%20don't%20depend%20on}\,\vec{w}\\&=\operatorname*{argmax}_{\vec{w}}\left\{\sum_{i=0}^m\log\left[\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2 \right)\right]\right\}\\&=\operatorname*{argmax}_{\vec{w}}\left[-\sum_{i=0}^m (y_i-h_w(\vec{x_i}))^2 \right]&&\text{dropping%20terms%20that%20don't%20depend%20on}\,\vec{w}%20\\&=\operatorname*{argmin}_{\vec{w}}\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2&&\text{converting%20argmax%20into%20argmin}\\\end{align*}" /></p>
 
 So, to find the best set of weights, we pick the one that minimizes the sum of squared errors, which is exactly the same thing as we did in our original presentation of the linear regression.
 
 Moreover, if we don't consider <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> a fixed value, but a random variable with a prior probability distribution, Bayesian inference may be used to obtain a posterior distribution. This suggest an alternative for the maximum likelihood algorithm, namely the **maximum a posteriori (MAP)** algorithm. We now want the <img src="https://latex.codecogs.com/svg.latex?\vec{w}_{\text{MAP}}" /> with the maximum posterior probability <img src="https://latex.codecogs.com/svg.latex?P(\vec{w}|S)" />. Considering <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> follows a [multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) with *μ = 0* and *Σ = (2λ)<sup>-1</sup>I*, where *I* is the *n+1* identity matrix, we have:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}P(\vec{w})&=\mathcal{N}(0,(2\lambda)^{-1}I)=\frac{1}{\sqrt{(2\lambda)^{-n}(2\pi)^n}}\exp\left(-\lambda\sum_{j=0}^n w_j^2\right)\\\vec{w}_{\text{MAP}}&=\operatorname*{argmax}_{\vec{w}} P(\vec{w}|S)\\ &=\operatorname*{argmax}_{\vec{w}} \frac{P(S|\vec{w})P(\vec{w})}{P(S)}  && \text{Bayes' rule}\\ &=\operatorname*{argmax}_{\vec{w}} \left[\log\frac{P(S|\vec{w})}{P(S)}+\log P(\vec{w})\right]  && \text{taking the logarithm}\\&=\operatorname*{argmax}_{\vec{w}} \left[\log P(S|\vec{w})+\log P(\vec{w})\right] && \text{dropping term that doesn't depend on}\,\vec{w}\\&=\operatorname*{argmin}_{\vec{w}} \left[-\log P(S|\vec{w})-\log P(\vec{w})\right]&&\text{converting argmax into argmin}\end{align*}" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}P(\vec{w})&=\mathcal{N}(0,(2\lambda)^{-1}I)=\frac{1}{\sqrt{(2\lambda)^{-n}(2\pi)^n}}\exp\left(-\lambda\sum_{j=0}^nw_j^2\right)\\\vec{w}_{\text{MAP}}&=\operatorname*{argmax}_{\vec{w}}P(\vec{w}|S)\\&=\operatorname*{argmax}_{\vec{w}}\frac{P(S|\vec{w})P(\vec{w})}{P(S)}&&\text{Bayes'%20rule}\\&=\operatorname*{argmax}_{\vec{w}}\left[\log\frac{P(S|\vec{w})}{P(S)}+\log P(\vec{w})\right]&&\text{taking%20the%20logarithm}\\&=\operatorname*{argmax}_{\vec{w}}\left[\log P(S|\vec{w})+\log P(\vec{w})\right]&&\text{dropping%20term%20that%20doesn't%20depend%20on}\,\vec{w}\\&=\operatorname*{argmin}_{\vec{w}}\left[-\log P(S|\vec{w})-\log P(\vec{w})\right]&&\text{converting%20argmax%20into%20argmin}\end{align*}" /></p>
 
 From the MLE, we know how to minimize <img src="https://latex.codecogs.com/svg.latex?-\log P(S|\vec{w})" />. Thus, if we plug the definition of <img src="https://latex.codecogs.com/svg.latex?P(\vec{w})" /> into the equation, we end up with:
 

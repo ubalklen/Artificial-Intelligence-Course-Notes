@@ -6,7 +6,7 @@ In this note, we will focus on finding the maximum value of a function, but each
 ## Hill-climbing
 The **hill-climbing** algorithm starts at some state and continually moves in the direction that increases the function's value the most. It terminates when it reaches a “peak” where no neighbor state has a higher value.
 
-![Hill-climbing](images/hill-climbing.png)
+<p align="center"><img src="images/hill-climbing.png" title="Hill-climbing" /></p>
 
 Hill-climbing is sometimes called **greedy local search** because it grabs a good neighbor state without thinking ahead about where to go next. It often makes rapid progress toward a solution because it's usually quite easy to improve a bad state.
 
@@ -39,4 +39,4 @@ Another way to perform optimization, this time inspired by Biology, is by applyi
 5. Each location of the children's strings is subject to random **mutation** with a small independent probability. So the new generated individuals are not completely defined by their parents.
 6. The children are added to the population, and the cycle repeats until a solution is generated.
 
-![Genetic Algorithm](images/genetic_algorithm.png)
+<p align="center"><img src="images/genetic_algorithm.png" title="Genetic algorithm" /></p>

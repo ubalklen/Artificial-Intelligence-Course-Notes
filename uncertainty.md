@@ -1,4 +1,4 @@
-# Dealing with Uncertainty
+# Uncertainty
 
 >**An Introductory Note**
 >
@@ -13,25 +13,25 @@ The events are outputs of **random variables**. The probability that the random 
 A **distribution** is a function *P(X)* that assigns a probability to the possible values of a random variable. If the domain of a random variable is discrete, it's distribution is called **probability mass function** and it's the same as *Pr(X)*. An example of probability mass function is the Poisson distribution (for the domain of natural numbers):
 
 <p align="center">
-    <img src="https://latex.codecogs.com/svg.latex?P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!},\; \;k=0,1,2,\dots" title="Exponential distribution formula" />
+    <img src="https://latex.codecogs.com/svg.latex?P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!},\;\;k=0,1,2,\dots"/>
 </p>
 
 If the domain of a random variable is continuous, it's distribution is called **probability density function** (also known as **pdf**). An example of pdf is the exponential distribution (for the domain of non-negative real numbers):
 
 <p align="center">
-    <img src="https://latex.codecogs.com/svg.latex?P(X = z) = \lambda e^{-\lambda z }, \;\; z\ge 0" title="Exponential distribution formula" />
+    <img src="https://latex.codecogs.com/svg.latex?P(X=z)=\lambda%20e^{-\lambda%20z},\;\;z\ge0"/>
 </p>
 
 In order to account for the continuity of the domain, a pdf does not strictly maps the elements of the domain to a probability, but to a **probability density**. The actual probability is the area under the curve of a given range of the domain. This means that the probability of any single element of the domain is zero.
 
-In both examples, the parameter <img src="https://latex.codecogs.com/svg.latex?\lambda" title="lambda" /> gives the flexibility of producing different variations of the same distribution. So, stricly speaking, they both are families of distributions.
+In both examples, the parameter λ gives the flexibility of producing different variations of the same distribution. So, stricly speaking, they both are families of distributions.
 
 ## Independence
-In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables <img src="https://latex.codecogs.com/svg.latex?X" title="X" /> and <img src="https://latex.codecogs.com/svg.latex?Y" title="Y" /> are said independent if <img src="https://latex.codecogs.com/svg.latex?P(X|Y)=P(X)" title="P(X|Y)=P(X)" /> and <img src="https://latex.codecogs.com/svg.latex?P(Y|X)=P(Y)" title="P(Y|X)=P(Y)" />, where <img src="https://latex.codecogs.com/svg.latex?P(X|Y)" title="P(X|Y)" /> reads "probability of X given that Y occurred" and is called **conditional probability**.
+In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables *X* and *Y* are said independent if *P(X | Y) = P(X)* and *P(Y | X) = P(Y)*, where *P(X | Y)* reads "probability of X given that Y occurred" and is called **conditional probability**.
 
-When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respectivies domain) is given by <img src="https://latex.codecogs.com/svg.latex?P(X)*P(Y)" title="P(X)*P(Y)" />. 
+When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respectivies domain) is given by *P(X)\*P(Y)*. 
 
-If the random variables do affect each other, they are called **dependent** and that means <img src="https://latex.codecogs.com/svg.latex?P(X|Y) \neq P(X)" title="P(X|Y) \neq P(X)" /> or <img src="https://latex.codecogs.com/svg.latex?P(Y|X) \neq P(Y)" title="P(X|Y) \neq P(X)" />. For example, if the sky is cloudy (random variable X), the probability of raining (random variable Y) is different from the probability of raining had the sky been clear.
+If the random variables do affect each other, they are called **dependent** and that means *P(X | Y) ≠ P(X)* or *P(Y | X) ≠ P(Y)*. For example, if the sky is cloudy (random variable *X*), the probability of raining (random variable *Y*) is different from the probability of raining had the sky been clear.
 
 In case two random variables are dependent, the probability of both of them happen is not the product of them anymore and is dependent on the phonomena being modeled.
 
