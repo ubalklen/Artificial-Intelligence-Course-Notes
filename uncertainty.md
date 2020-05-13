@@ -29,7 +29,7 @@ In both examples, the parameter λ gives the flexibility of producing different 
 ## Independence
 In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables *X* and *Y* are said independent if *P(X | Y) = P(X)* and *P(Y | X) = P(Y)*, where *P(X | Y)* reads "probability of X given that Y occurred" and is called **conditional probability**.
 
-When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respectivies domain) is given by *P(X)\*P(Y)*. 
+When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respectives domains) is given by *P(X)\*P(Y)*. 
 
 If the random variables do affect each other, they are called **dependent** and that means *P(X | Y) ≠ P(X)* or *P(Y | X) ≠ P(Y)*. For example, if the sky is cloudy (random variable *X*), the probability of raining (random variable *Y*) is different from the probability of raining had the sky been clear.
 
