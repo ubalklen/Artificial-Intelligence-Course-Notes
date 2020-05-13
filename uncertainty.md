@@ -33,7 +33,7 @@ When the random variables are independent, their **joint probability** (i.e. the
 
 If the random variables do affect each other, they are called **dependent** and that means *P(X | Y) ≠ P(X)* or *P(Y | X) ≠ P(Y)*. For example, if the sky is cloudy (random variable *X*), the probability of raining (random variable *Y*) is different from the probability of raining had the sky been clear.
 
-In case two random variables are dependent, the probability of both of them happen is not the product of them anymore and is dependent on the phonomena being modeled.
+In case two random variables are dependent, the probability of both of them happen is not the product of them anymore and is dependent on the phenomena being modeled.
 
 ## Bayes' formula
 *This section is under review*
