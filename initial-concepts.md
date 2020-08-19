@@ -12,7 +12,7 @@ AI, as a subfield of CS, is more related to the last definition. As Peter Norvig
 
 > **Not So Intelligent...**
 >
-> Besides its pompous name and the numerous works of fiction depicting a world dominated by smarter-than-human robots, AI is still in most part a subfield of Computer Science, which the main object of study is the algorithm. Therefore, AI can be seen more as the study of *intelligence-inspired algorithms* than as the science of building sentient robots. The reality is that we are nowhere near creating something really possessing intelligence as we envision it. Most advances in AI are *just* very creative algorithms that work only in contrived environments.
+> Besides its pompous name and the numerous works of fiction depicting a world dominated by smarter-than-human robots, AI is still in most part a subfield of Computer Science, which the main object of study is the algorithm. Therefore, AI can be seen more as the study of *intelligence-inspired algorithms* than as the science of building sentient robots. The reality is that we are nowhere near creating something really possessing intelligence as we envision it. Most advances in AI are *just* very creative algorithms that work only in controlled environments.
 >
 > This is not to say AI is a failure. More on the contrary: AI has always been a major force behind Computer Science progress. Alan Turing and other pioneers may have paved the way for the modern computer, but they were really pursuing an intelligent machine capable of emulate the human mental skills.
 
