@@ -86,7 +86,7 @@ As we saw when talking about overfitting, it's important that the hypothesis obt
 
 One of such heuristic is based on the fact that a decision tree will be small if it can separate the training set into groups of examples with uniform outputs right from the beginning. For example, if data shows that our potential restaurant patron will always go to the restaurant if she is hungry and will never go otherwise, we can choose "Are you hungry?" as the first and only question and will obtain a tree that is small and consistent with the data. In practice, we will rarely have the opportunity to make a perfect split like that, so we have to devise some way to evaluate the goodness of a split. We can do that using metrics such as **entropy** or **gini impurity**. The latter has the following formula:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?Gini\,impurity=\sum_ip_i*(1-p_i)" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{gini\,impurity}=\sum_ip_i*(1-p_i)" /></p>
 
 where *p<sub>i</sub>* is fraction of examples with output *i* in the current group.
 
