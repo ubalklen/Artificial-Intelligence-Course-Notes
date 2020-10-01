@@ -21,8 +21,8 @@ MDPs can represent continuing and episodic tasks. A **continuing task** is one t
 
 In the context of MDPs, a policy *π* is a function that returns an action given a state (i.e. *π: S → A*). A policy models the behavior of an agent. From a policy, we can **sample a walk** in the MDP. This can be represented as a sequence of state-actions-reward triplets. In mathematical notation:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?\pi\sim s_0,a_1,r_1,s_1,a_2,r_2,..." /></p>
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?s_i\in S,a_i\in A,r_{i+1}=R(s_{i},a_{i+1},s_{i+1}),i\geq 0" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\pi\sim s_0,a_0,r_1,s_1,a_1,r_2,..." /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?s_i\in S,a_i\in A,r_{i+1}=R(s_i,a_i,s_{i+1}),i\geq 0" /></p>
 
 Notice the states *s<sub>i</sub>* in the sequence can be the same since a MDP can contain loops.
 
@@ -51,7 +51,7 @@ Policy iteration, in its turn, starts with a random policy and then calculate *V
 ## Monte-Carlo Policy Evaluation
 As we saw in the last section, there are solutions for the problem of finding an optimal policy when all the components of an MDP are known. But what if we don't know the transition probabilities? This is a more realistic scenario, as it would be impossible or infeasible to model the *T* function beforehand.
 
-In such an environment, we can apply **control methods** that are akin to policy evaluation. We try some policy, evaluate it and improve it if other actions turned out to be better.
+In such an environment, we can apply **model-free methods** that are akin to policy evaluation. We try some policy, evaluate it and improve it if other actions turn out to be better.
 
 As now we don't know *T*, we can't evaluate a policy using *V*, so first we must find a new evaluation method. For episodic tasks, the simplest idea is doing **Monte-Carlo (MC) policy evaluation**, which is basically simulating many episodes and averaging out the results. An overview of the process goes like this:
 1. Select a policy to be evaluated.
@@ -69,7 +69,7 @@ The *α* term can be viewed as a parameter for the calculation of a different ki
 Using the same logic, a **Monte-Carlo update** that calculates the new value for a state given the result of an episode can be written as **_V(s<sub>t</sub>) ← V(s<sub>t</sub>) + α[G<sub>t</sub> - V(s<sub>t</sub>)]_**. This procedure converges to the true state values under a given policy.
 
 ## Temporal-Difference Policy Evaluation
-MC policy evaluation always considers all the subsequent states' returns of a given state. Instead, **Temporal-Difference (TD) policy evaluation** builds upon the idea of using only the current estimated values of *some* of the future states.
+MC policy evaluation always considers all the subsequent states' returns of a given state. Instead, **Temporal-Difference (TD) policy evaluation** builds upon the idea of using only the current estimated values of *some* of the future states, a concept known as **bootstrapping**.
 
 The simplest TD algorithm is called **TD(0)**. It only considers the value of the next state. For example, if an agent performs some action in a state *s<sub>t</sub>* and transitions to a state *s<sub>t+1</sub>*, only *V(s<sub>t+1</sub>)* will be used to update the value of *V(s<sub>t</sub>)*. The update is given by **_V(s<sub>t</sub>) ← V(s<sub>t</sub>) + α[r<sub>t+1</sub> + γV(s<sub>t+1</sub>) - V(s<sub>t</sub>)]_**. Compared to the Monte-Carlo update, we can see that *G<sub>t</sub>* was switched for *r<sub>t+1</sub> + γV(s<sub>t+1</sub>)*.
 
@@ -87,4 +87,40 @@ Again, why bother mixing TD(0) and MC approaches if the former is considered bet
 
 ## Control
 
-The presented TD methods—which includes Monte-Carlo thanks to TD(λ)—are only good to evaluate a given policy. The greater question of finding the optimal policy still remains. This is known in literature as the **control problem**.
+The presented TD methods—which includes Monte-Carlo thanks to TD(λ)—are only good to evaluate a given policy. The greater question of finding the optimal policy still remains. This is known in literature as the **control problem** and, as mentioned before, can be solved with methods based on the same principles of policy iteration.
+
+Remember that policy iteration is composed of two steps: policy evaluation and policy improvement. Using TD, we can perform the policy evaluation step. What about the policy improvement step? The first idea is to do that in the same greedy way as in the original policy iteration. After the evaluation gives us the state values, if we find an action in some state that does better than the current action prescribed by the policy, we change the policy to take that action in that state. We repeat these steps until convergence.
+
+But notice that in order to calculate how good an action *a* does in a state *s* as in the original policy iteration algorithm, we need to sum all the possible rewards multiplied by the probability of transitioning to each possible new state. This means we need to know *T*, which we don't have. To circumvent this issue, we can use a variant of the *V* function called *Q* that takes a state and an action as inputs and returns the expected return under some policy. Using mathematical notation, *Q* is defined as follows:
+
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}Q_\pi(s,a)&=\mathbb{E}[G_t|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+...|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma(r_{t+2}+\gamma r_{t+3}+\gamma^2 r_{t+4}...)|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma G_{t+1}|s_t=s,a_t=a]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma\mathbb{E}[G_{t+1}|s_{t+1}=s']]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma V_\pi(s')]\end{align*}" /></p>
+
+Since we can write *V* in terms of *Q*:
+
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?\begin{align*}V_\pi(s)&=\mathbb{E}[G_t|s_t=s]\\&=\mathbb{E}[G_t|s_t=s,a_t=\pi(s)]\\&=Q_\pi(s,\pi(s))\end{align*}" /></p>
+
+We can build the following Bellman equation for *Q*:
+
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?Q_\pi(s,a)=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma Q_\pi(s',\pi(s'))]" /></p>
+
+An useful property of *Q* is that the action *a* that maximizes *V(s)* is the same one that returns the maximum *Q(s,a)*. So to do policy improvement, we can look for the actions that generate the best value of *Q*. No multiplication of rewards and transition probabilities is needed anymore. The *Q* function caches all this information.
+
+Unfortunately, the introduction of *Q* makes our greedy approach not work for many policies. As *Q* is action dependent, the policy improvement step will stick to the action that happened to generate the best *Q* value in the first iteration and never try other potentially better actions. Solutions to this problem are divided in on-policy  and off-policy methods.
+
+### On-policy methods
+
+On-policy methods are the ones that improve a stochastic policy that always have some positive probability of picking any possible action in any state. This would avoid the policy getting stuck with some action that is not optimal.
+
+The simplest application of this principle is to use a policy that always have a probability *ε* of selecting a totally random action. We call this the **ε-greedy policy**.
+
+With an ε-greedy policy, we can apply policy iteration using *Q* in the same way we use *V*. In particular, if we use TD(0) as the policy evaluation method, we have an update rule in the form of **_Q(s<sub>t</sub>, a<sub>t</sub>) ← Q(s<sub>t</sub>, a<sub>t</sub>) + α[r<sub>t+1</sub> + γQ(s<sub>t+1</sub>, a<sub>t+1</sub>) - Q(s<sub>t</sub>, a<sub>t</sub>)]_**. The policy iteration algorithm that uses this rule is called **SARSA**, because of the sequence **S**tate-**A**ction-**R**eward-**S**tate-**A**ction used in the update.
+
+In the limit, this scheme will converge to a policy that is very close to the optimal one. It will never reach the optimal policy, though, because we are making the compromise of keeping the policy stochastic. The resulting policy exploits the environment by taking optimal actions a portion of the time, but it also dedicates some time to take non-optimal actions in order to explore the environment and hopefully find better actions. This **exploration-exploitation** tension is a pervasive theme in RL, and the perfect balance is still an open problem.
+
+### Off-policy methods
+
+A more sophisticated model-free approach to find an optimal policy is to use off-policy methods. Off-policy methods use two policies, a behavior policy and a target policy. The **behavior policy** is the one that is actually used by the agent in the environment. The **target policy** is the policy used to updated the *Q* values during policy iteration.
+
+In particular, if we set the behavior policy as the ε-greedy policy and the target policy as the full greedy policy (the one which always picks the actions with the best Q value), we have an update rule in the form of **_Q(s<sub>t</sub>, a<sub>t</sub>) ← Q(s<sub>t</sub>, a<sub>t</sub>) + α[r<sub>t+1</sub> + γ max<sub>a</sub>Q(s<sub>t+1</sub>, a) - Q(s<sub>t</sub>, a<sub>t</sub>)]_**. This is know as **Q-learning**.
+
+## Function approximation
