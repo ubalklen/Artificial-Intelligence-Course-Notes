@@ -26,6 +26,30 @@ In order to account for the continuity of the domain, a pdf does not strictly ma
 
 In both examples, the parameter λ gives the flexibility of producing different variations of the same distribution. So, strictly  speaking, they both are families of distributions.
 
+>**The Probability of Single Element of a Continuous Domain**
+>
+>You may have been confused with the fact that, in a continuous domain, the probability of an exact single element of that domains is zero. This not intuitive. If every element of a set has zero probability, how the probability of some event is not?
+>
+>Unfortunately, I don't have a definite answer for this. It all boils down to the way our brain interprets the infinite, which is known as being unintuitive for human beings. The answer maybe trivial to a mathematician, but it's definitely not to me and I guess to other people.
+>
+>Still, this incomprehension bothers me. But I've been able to find some explanations that are somewhat convincing. In the end, I elaborate myself an argument that allows me to sleep at night.
+>
+>The first explanation for this paradox is considering the case when the probability of any event must be equal to the others. Then, if the probability of an element is greater than 0, the probability of all other elements are the same positive number. But in this case, the total probability won't some up to 1. There are infinite elements in the set and if you sum their probabilities, even if they were small, this will result in infinite. So we say the probability of a single event is 0.
+>
+>But the explanation I find more intuitive is that *Pr(X = x) = 0* in a continuous domain because a continuous domain is an uncountable set and it's **physically** impossible to pick a number from an uncountable set. Grossly speaking, an uncountable set is one that you can't elaborate an algorithm to count all its elements. This is not because the set is infinite. The set of the natural numbers is infinite, but still countable. I can devise an algorithm that count all the natural numbers by going from 0 to 1, then to 2, than 3 and so on.
+>
+>To illustrate the physical impossibility of picking a specific number in an uncountable set, let's do a thought experiment. Imagine there is a line segment that represents all real numbers from 0 to 1. Your task is to mark a specific point on this line with a pen. Let's say the point you have to mark is 0.75. You will end up with something like this:
+>
+>Now imagine I have an extraterrestrial ultra-powered microscope that can zoom in infinitely. I use this device and zoom in all the way to the point you marked. Now I see your pen's mark as a big circle. I say: "Hey, you didn't mark the exact point right. You also marked some points ahead and behind 0.75. I can see 0.750001 and 0.74999 also marked. Do it again, but this time mark only the number 0.75, would you?"
+>
+>Then you get a new pen with a finer tip and precisely mark the 0.75. Again, I use my microscope. And again, I can adjust it to see a big circle. "I still can see 0.7500000001 and 0.74999999999. Try again".
+>
+>And then you got another pen, and another and another. And every time I will be able to zoom in your mark and see that, in reality, you didn't mark a single point, but a range instead.
+>
+>The same goes to probabilities in uncountable domains. They're zero for an exact event because you can never, ever pick an exact element from that set. All you can do is pick a range of elements and that range can have a probability greater than 0.
+>
+>If you are now wondering how the hell this happened, it's because real numbers aren't really real! Mathematics is a creation of humans to try to understand the world around, but it's not a perfect representation of reality.
+
 ## Independence
 In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables *X* and *Y* are said to be independent if *P(X | Y) = P(X)* and *P(Y | X) = P(Y)*, where *P(X | Y)* reads "probability of X given that Y occurred" and is called **conditional probability**.
 
