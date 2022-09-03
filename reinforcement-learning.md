@@ -30,7 +30,7 @@ The **return** of a sample is how good it is in terms of rewards generated. More
 
 Although we could define the return of a state as the sum of the rewards obtained after that state, this would bring problems with continuing tasks that never reach a terminal state, or even with episodic tasks that contain deadlocks. A simple sum of rewards would amount the return of a state to infinite and no comparisons would be possible. A better definition of return is through the use of a discount factor *γ* that makes future rewards less important and converges to a single number even in an infinite sequence. Specifically, a return *G<sub>t</sub>* of the state *t* in a sequence can be define as:
 
-<p align="center"><img src="https://latex.codecogs.com/svg.latex?G_t=r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+...=\sum_{k=0}^{\infty}\gamma^kr_{t+k+1}\qquad 0\leq\gamma\leq 1" /></p>
+<p align="center"><img src="https://latex.codecogs.com/svg.latex?G_t=r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+...=\sum_{k=0}^{\infty}\gamma^kr_{t+k+1}\qquad 0\leq\gamma<1" /></p>
 
 Notice the *γ* factor determines how much weight is given to future rewards. If *γ* is close to 0, the agent will act "myopic". As *γ* approaches 1, the agent gets more far-sighted. Nevertheless, the way *γ* is applied to future rewards forms a geometric series, and this makes the return converge to a fixed number.
 
@@ -49,7 +49,7 @@ The optimal policy *π<sup>\*</sup>* is initially unknown and of great interest.
 Policy iteration, in its turn, starts with a random policy and then calculate *V* for each state according to that policy (the **policy evaluation** step). In another step, the action that generates the best value in each state is compared to the one prescribed by the current policy. If a different action is better than the one in the policy, the policy is updated to prescribe this new action instead (the **policy improvement** step). The method runs until convergence. Policy iteration exploits the fact that we don't need to know exactly the true state values in order to find the optimal policy.
 
 ## Monte-Carlo Policy Evaluation
-As we saw in the last section, there are solutions for the problem of finding an optimal policy when all the components of an MDP are known. But what if we don't know the transition probabilities? This is a more realistic scenario, as it would be impossible or infeasible to model the *T* function beforehand.
+As we saw in the last section, there are solutions for the problem of finding an optimal policy when all the components of a MDP are known. But what if we don't know the transition probabilities? This is a more realistic scenario, as it would be impossible or infeasible to model the *T* function beforehand.
 
 In such an environment, we can apply **model-free methods** that are akin to policy evaluation. We try some policy, evaluate it and improve it if other actions turn out to be better.
 
@@ -71,7 +71,7 @@ Using the same logic, a **Monte-Carlo update** that calculates the new value for
 ## Temporal-Difference Policy Evaluation
 MC policy evaluation always considers all the subsequent states' returns of a given state. Instead, **Temporal-Difference (TD) policy evaluation** builds upon the idea of using only the current estimated values of *some* of the future states, a concept known as **bootstrapping**.
 
-The simplest TD algorithm is called **TD(0)**. It only considers the value of the next state. For example, if an agent performs some action in a state *s<sub>t</sub>* and transitions to a state *s<sub>t+1</sub>*, only *V(s<sub>t+1</sub>)* will be used to update the value of *V(s<sub>t</sub>)*. The update is given by **_V(s<sub>t</sub>) ← V(s<sub>t</sub>) + α[r<sub>t+1</sub> + γV(s<sub>t+1</sub>) - V(s<sub>t</sub>)]_**. Compared to the Monte-Carlo update, we can see that *G<sub>t</sub>* was switched for *r<sub>t+1</sub> + γV(s<sub>t+1</sub>)*.
+The simplest TD algorithm is called **TD(0)**. It only considers the value of the next state. For example, if an agent performs some action in a state *s<sub>t</sub>* and transitions to a state *s<sub>t+1</sub>*, only *V(s<sub>t+1</sub>)* will be used to update the value of *V(s<sub>t</sub>)*. The update is given by **_V(s<sub>t</sub>) ← V(s<sub>t</sub>) + α[r<sub>t+1</sub> + γV(s<sub>t+1</sub>) - V(s<sub>t</sub>)]_**. Compared to the Monte-Carlo update, we can see that *G<sub>t</sub>* is switched for *r<sub>t+1</sub> + γV(s<sub>t+1</sub>)*.
 
 Why only consider the next state instead of wait the episode to finish and get the more precise value as it's done in Monte-Carlo learning? A first advantage of TD(0) is that it works for continuing tasks. TD(0) update allows us to calculate a new value right after the state transition. We don't have to wait for the end of some episode anymore.
 
@@ -119,8 +119,44 @@ In the limit, this scheme will converge to a policy that is very close to the op
 
 ### Off-policy methods
 
-A more sophisticated model-free approach to find an optimal policy is to use off-policy methods. Off-policy methods use two policies, a behavior policy and a target policy. The **behavior policy** is the one that is actually used by the agent in the environment. The **target policy** is the policy used to updated the *Q* values during policy iteration.
+A more sophisticated model-free approach to find an optimal policy is to use off-policy methods. Off-policy methods use two policies, a behavior policy and a target policy. The **behavior policy** is the one that is actually used by the agent in the environment. The **target policy** is the policy used to update the *Q* values during policy iteration.
 
-In particular, if we set the behavior policy as the ε-greedy policy and the target policy as the full greedy policy (the one which always picks the actions with the best Q value), we have an update rule in the form of **_Q(s<sub>t</sub>, a<sub>t</sub>) ← Q(s<sub>t</sub>, a<sub>t</sub>) + α[r<sub>t+1</sub> + γ max<sub>a</sub>Q(s<sub>t+1</sub>, a) - Q(s<sub>t</sub>, a<sub>t</sub>)]_**. This is know as **Q-learning**.
+In particular, if we set the behavior policy as the ε-greedy policy and the target policy as the full greedy policy (the one which always picks the actions with the best Q value), we have an update rule in the form of **_Q(s<sub>t</sub>, a<sub>t</sub>) ← Q(s<sub>t</sub>, a<sub>t</sub>) + α[r<sub>t+1</sub> + γ max<sub>a</sub>Q(s<sub>t+1</sub>, a) - Q(s<sub>t</sub>, a<sub>t</sub>)]_**. This is known as **Q-learning**.
 
 ## Function approximation
+
+An important implementation detail of algorithms such as SARSA and Q-learning is that they demand a separate variable for each state-action pair to hold their values of *Q*.Therefore, in order to use them, we need some sort of table, where we can query the value of a particular pair. For this reason, those algorithms are said to be in a tabular format.
+
+The need of a table is problematic when the MDP has a high (or even infinite) number of states or actions, as every computer has its memory limits. A workaround is to use a function approximator instead of the real table. So the tabular *Q(s,a)* is replaced by a function capable of returning a good estimate for every state-action pair, even the ones that have never been experienced by the agent.
+
+Currently, the most appealing function approximator is the neural network. It has been proven that neural networks, under the right conditions, can serve as universal approximators. When using a neural network, we can adapt the update rules of SARSA and Q-learning to update the network weights. Unfortunately, these new versions bring their own set of challenges. Most  notably, once a non-linear approximator such as a neural network is used, there are no more guarantees of convergence.
+
+One of the state-of-the-art algorithms in RL is DQN, a variant of Q-learning that uses neural networks as approximators. In order to circumvent the divergence that may arise, DQN employs two techniques. First, each update is made using a random subset of past transitions, not the immediate transition the agent has just experienced. Second, the updates are applied to a cloned version of the original neural network, while the original network keeps their weights fixed. After a number of transitions, the original network copy the weights of its clone. Both techniques have been show to help in stabilizing the training. Using DQN, researchers were able to train an agent to play Atari games with impressive results.
+
+## Multi-agent reinforcement learning
+
+So far, we have seen the theory around MDPs where there is only one agent in the environment. Since the introduction of other agents makes it possible to represent more realistic scenarios, it is of research interest to extend that framework to environments with multiple agents.
+
+In the single-agent case, the goal of MDP-solving methods is to find an optimal policy,
+which is defined by the one that generates the greatest expected return. In the multi-agent case, the definition of the optimal policy is less straightforward. Since each agent has the potential to change not only its own return but the other agents’ returns, simply stating that each agent should seek the best expected return would not suffice. A good return for an agent could result in a poor return for another.
+
+Many of the problems involving multiple agents have been studied by Game Theory (GT), a field with roots in Economics. From that field, we borrow the concept of equilibrium. The objects of study of GT are called games. In a game, an equilibrium is reached when no agent (or player in GT jargon) can obtain a better expected return by unilaterally changing its policy (or strategy). Here, the focus is on games where there are only 2 players.
+
+Finding equilibria is appealing because, once we reached it, we discovered a set of policies that have a minimum guaranteed expected return for the player who follows it, no matter what the other player does and even if the player publicly announces his strategy beforehand. This also means that if the other player does not go along and acts as to break the equilibrium, he can only decrease its own return.
+
+Equilibrium is also a stable concept that can be defined as the goal of solving the multi-agent problem. This avoids a more convoluted “guessing game” where each player tries to predict what the other is thinking about. Hence, we define the goal of solving a MDP with multiple agents as finding policies that make the agents behave in an equilibrium.
+
+### Minimax equilibrium
+
+There can be multiple equilibria in the same game. One particular equilibrium is achieved by both players assuming the other one will always act to generate the worst expected return to its opponent, no matter what strategy one player chooses. The equilibrium is reached when both players settle in a strategy that maximizes the minimum expected return offered by the opponent. This is called the minimax equilibrium.
+
+### Correlated equilibrium
+
+Another kind of equilibrium is the correlated equilibrium. It assumes the actions of each player are suggested by a trusted third-party that samples two action (one for each player) from a public probability distribution. Importantly, the probability of a
+certain action being suggested to a player may not be independent of the action that is being suggested to the other. Moreover, one player is only aware of the probability
+distribution of the action pairs, but not the actual suggestion made to the other player.
+
+It has been demonstrated that, for some probability distributions, players who follow the suggestions made by the third-party are in equilibrium, i.e. one player would not obtain a better expected return by deviating from his suggestion if the other is
+following theirs. These probability distributions are the ones that fit in rationality constraints (along with the regular constraints for probabilities). These constraints make sure that the expected return obtained by one player following its suggestions is at least as great as if he deviates (while the other player obeys to theirs).
+
+There can be multiple probability distributions that satisfy those constraints. We can fix an objective function and solve a linear programing problem to obtain a specific distribution. Greenwald and Hall propose the utilitarian correlated equilibrium (uCE),where the objective function is the maximum sum of players’ expected returns. This equilibrium can be interpreted as the one that yields the best “social welfare” in the game.
