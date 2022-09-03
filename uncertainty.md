@@ -26,7 +26,7 @@ In order to account for the continuity of the domain, a pdf does not strictly ma
 
 In both examples, the parameter λ gives the flexibility of producing different variations of the same distribution. So, strictly  speaking, they both are families of distributions.
 
->**The Probability of Single Element of a Continuous Domain**
+>**The Probability of a Single Element of a Continuous Domain**
 >
 >You may have been confused with the fact that, in a continuous domain, the probability of an exact single element of that domains is zero. This not intuitive. If every element of a set has zero probability, how the probability of some event is not?
 >
