@@ -62,9 +62,9 @@ Finally, we define the initial probabilities of each element of $S$, i.e. $P(X_1
 
 ## Transformers
 
-In RNNs, multiple hidden states get updated along the way a sentence is being processed. The standard practice of using only the last hidden state to generate the desired output seemed suboptimal, as that fixed-length vector would have to carry all the important signals from a potentially long sentence. This was know as the fixed-length bottleneck.
+In RNNs, multiple hidden states get updated along the way a sentence is being processed. The standard practice of using only the last hidden state to generate the desired output seemed suboptimal, as that fixed-length vector would have to carry all the important signals from a potentially long sentence. This is known as the **fixed-length bottleneck**.
 
-In order to try to extract more juice from hidden states, RNN researchers started to explore a mechanism called **attention**. Using attention, instead of passing only the last hidden state, the model pass a weighted averaged of all hidden states. The weights are learned in training time, in a way that different inputs produce different weights. In other words, different inputs could *attend to* different hidden states.
+In order to try to extract more juice from hidden states, RNN researchers started to explore a mechanism called **attention**. Using attention, instead of passing only the last hidden state, the model pass a weighted average of all hidden states. The weights are learned in training time, in a way that different inputs produce different weights. In other words, different inputs could *attend to* different hidden states.
 
 In 2017, in an aptly paper named ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762), researchers showed that you can throw away all the RNN machinery and pass data straight to layers based on the attention mechanism. One big advantage of doing that is that, in attention layers, you do not need to sequentially feed tokens.
 
@@ -117,7 +117,7 @@ That is called **bilinear attention**. The entries of $U$ matrix are learned dur
 
 Besides allowing for varied input lenght, note that the semantics of $S$ and $S_U$ are different. Once learned, $S$ is fixed, so is $W$. This means the attention scores it carries are entirely positional. The first row of $W$ will propose the same transformation for every first word of a sentence, be that "The" or "Harry". $S_U$, on the other hand, is conditional on $X$, so is $W_U$. Their scores change during inference, depending on the words of the sentence.
 
-Let's now focus on the optimizations of the bilinear attention that leads to the attention mechanism proposed in the transformers original paper. First, we can factorize $U$ into two matrices, $U_Q$ and $U_K$, both of shape $d \times d_{k}$:
+Let's now focus on the optimizations of the bilinear attention that leads to the attention mechanism proposed in the original transformers paper. First, we can factorize $U$ into two matrices, $U_Q$ and $U_K$, both of shape $d \times d_{k}$:
 
 $$U = U_QU_K^T$$
 
