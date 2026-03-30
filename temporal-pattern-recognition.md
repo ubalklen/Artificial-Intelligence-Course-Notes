@@ -145,7 +145,7 @@ Besides allowing for varied input lenght, note that the semantics of $S$ and $S\
 
 Let's now focus on the optimizations of the bilinear attention that leads to the attention mechanism proposed in the original transformers paper. First, we can factorize $U$ into two matrices, $U\_Q$ and $U\_K$, both of shape $d \times d\_{k}$:
 
-$$U = U_QU_K^T$$
+$$U \approx U_QU_K^T$$
 
 This reduces the number of attention parameters from $d^2$ to $2 \cdot d \cdot d\_k$. If  $d\_k = 64$ and $d = 512$, that's 65,536 parameters instead of 262,144.
 
