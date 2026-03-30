@@ -11,7 +11,7 @@ DTW is a more smart approach that tries to account for the phase. Instead of sum
 ## Markov Processes
 A **Markov process** is a statistical model that can be applied to the problem of finding patterns in temporal data. It's modeled as follows. First, we assume time is discrete and represented by the set of positive integers (*t = 1, 2, 3 ...*). Second, we assume data at time *t* comes from a discrete random variable *X<sub>t<sub>* with a domain *S = {s<sub>1</sub>, ... , s<sub>n</sub>}*, and the probability of each outcome depends on the past outcomes. Then, we make the **Markov assumption**: the number of previous outcomes that influences on the probability of the current outcome is a fixed positive integer *k*. If *k=1*, we have a **first-order Markov process** that can represented as a Bayesian network.
 
-<p align="center"><img src="images\markov_process.png" title="First-order Markov process"/></p>
+![First-order Markov process](images/markov_process.png)
 
 We assume the process is **stationary**, i.e there is a single conditional probability table that holds the values of *P(X<sub>t</sub> | X<sub>t-1</sub>)* and is used for every random variable in the model. The process is called stationary because conditional probabilities are the same regardless of the time *t*.
 

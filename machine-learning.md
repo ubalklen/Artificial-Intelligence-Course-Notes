@@ -45,7 +45,7 @@ Still, there is the question as to whether we should be less restrictive. In the
 
 But if we follow this mindset, we will probably find an hypothesis that deviates from the unknown function, even if its loss is low. This happens because the more complex hypothesis will blindly fits to the training set and lose any generalization power along the way. This problem is known as **overfitting**. It also occurs the other way. If our hypothesis can't get any closer to the training set, we have an **underfitting** issue instead. The following figure, taken from [course slides](https://www.coursera.org/learn/machine-learning) by Andrew Ng, illustrates these concepts.
 
-<p align="center"><img src="images/overfitting.png" title="Under and overfitting"/></p>
+![Under and overfitting](images/overfitting.png)
 
 The important lesson here is that reducing the loss in the training set is just a proxy to what we really want, but it is not our main goal. In the end, we want good predictions of the outputs of the unknown function.
 
@@ -81,7 +81,7 @@ To add robustness to this process, we may split our dataset in *k* parts at rand
 
 Let's see an example of a decision tree. In order to predict if someone will go to a certain restaurant, we can ask questions like "How many patrons are there at the moment?" or "Is the person hungry?" until we collect enough information to say "Yes" (the person is going to the restaurant) or "No" (the person isn't).
 
-<p align="center"><img src="/images/decision_tree.png" title="Decision tree" /></p>
+![Decision tree](images/decision_tree.png)
 
 As we saw when talking about overfitting, it is important that the hypothesis obtained from the model accommodates the training set but not to the point of being overly complex. We can apply this concept to the construction of a decision tree by searching the smallest tree that is consistent with the data. The exact answer is infeasible to calculate—even in the binary case, there are 2<sup>2<sup>n</sup></sup> possible trees--but clever heuristics exist.
 
@@ -101,11 +101,11 @@ Why combine many "dumber" decision trees instead of using one "smart" one from t
 ### Neural networks
 Another model, inspired by the neurons of the nervous system, is the (artificial) **neural network**. The biological neuron can be seen as a device that aggregates input signals and outputs some signal only if the inputs allow for a certain threshold to be reached. We can translate this idea mathematically to form something like this:
 
-<p align="center"><img src=images/neuron.png title="Neuron" /></p>
+![Neuron](images/neuron.png)
 
 The (artificial) neuron receives some inputs (*a<sub>0</sub>, a<sub>1</sub>, ..., a<sub>n</sub>*), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its architecture, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
 
-<p align="center"><img src=images/neural_network.png title="Neural network" /></p>
+![Neural network](images/neural_network.png)
 
 An hypothesis is constructed using the neural network model by learning the weights that best fits some training set. This learning can be achieved by the **backpropagation** algorithm. In essence, backpropagation is gradient descent applied to neural networks. It calculates the partial derivatives of the loss function with respect to the weights of the last layer and then propagates that differentiation all the way back to the first layer, using the **chain rule**. With these derivatives, gradient descent allows us to update all the weights in a direction that reduces the total loss.
 
@@ -134,7 +134,7 @@ Unsupervised learning also encompasses methods that automatically reduce the num
 
 The learning process of k-means clustering uses an **expectation-maximization (E-M) algorithm**. First a number of clusters is previously defined. Then a **cluster point** is set at random for each. Each datapoint in the training set is appointed to the cluster represented by the nearest cluster point. Then the mean of the points in each cluster is calculated and become the new cluster point. The process repeats back-and-forth until convergence. The following figure shows the learning in a 2D space (extracted from "Pattern Recognition and Machine Learning" book by Christopher Bishop):
 
-<p align="center"><img src=images/k-means.png title="K-means" /></p>
+![K-means](images/k-means.png)
 
 ## Theory of Learning
 An important question is whether this whole thing we call learning is really feasible. What exact guarantees do we have that the hypothesis we generate can make good predictions for unseen datapoints, i.e. data that was not used during the training? In fact, we have only seen evidence that learning may not work—the overfitting phenomenon. Is there a theoretical basis able to demonstrate learning is indeed possible?
@@ -210,13 +210,13 @@ If we think <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> is a fixe
 
 Now, we solve our **maximum likelihood estimation (MLE)** algorithm:
 
-<p align="center"><img src="images\mle.svg" title="Maximum Likelihood Estimation (MLE)"/></p>
+![Maximum Likelihood Estimation (MLE)](images/mle.svg)
 
 So, to find the best set of weights, we pick the one that minimizes the sum of squared errors, which is exactly the same thing as we did in our original presentation of the linear regression.
 
 Moreover, if we don't consider <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> a fixed value, but a random variable with a prior probability distribution, Bayesian inference may be used to obtain a posterior distribution. This suggest an alternative for the maximum likelihood algorithm, namely the **maximum a posteriori (MAP)** algorithm. We now want the <img src="https://latex.codecogs.com/svg.latex?\vec{w}_{\text{MAP}}" /> with the maximum posterior probability <img src="https://latex.codecogs.com/svg.latex?P(\vec{w}|S)" />. Considering <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> follows a [multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) with *μ = 0* and *Σ = (2λ)<sup>-1</sup>I*, where *I* is the *n+1* identity matrix, we have:
 
-<p align="center"><img src="images\map.svg" title="Maximum a Posteriori (MAP)" /></p>
+![Maximum a Posteriori (MAP)](images/map.svg)
 
 From the MLE, we know how to minimize <img src="https://latex.codecogs.com/svg.latex?-\log P(S|\vec{w})" />. Thus, if we plug the definition of <img src="https://latex.codecogs.com/svg.latex?P(\vec{w})" /> into the equation, we end up with:
 
