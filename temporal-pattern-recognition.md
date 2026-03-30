@@ -50,3 +50,110 @@ And since $A$ holds the full conditional probability of a random variable:
 $$\sum_{j=1}^na_{ij}=1$$
 
 Finally, we define the initial probabilities of each element of $S$, i.e. $P(X_1 = S_i)$. These will be used to calculate the probability of a element to be in the first position of the sequence.
+
+## Recurrent Neural Networks
+*This section is under review*
+
+### Tokens
+*This section is under review*
+
+### Embeddings
+*This section is under review*
+
+## Transformers
+
+In RNNs, multiple hidden states get updated along the way a sentence is being processed. The standard practice of using only the last hidden state to generate the desired output seemed suboptimal, as that fixed-length vector would have to carry all the important signals from a potentially long sentence. This was know as the fixed-length bottleneck.
+
+In order to try to extract more juice from hidden states, RNN researchers started to explore a mechanism called **attention**. Using attention, instead of passing only the last hidden state, the model pass a weighted averaged of all hidden states. The weights are learned in training time, in a way that different inputs produce different weights. In other words, different inputs could *attend to* different hidden states.
+
+In 2017, in an aptly paper named ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762), researchers showed that you can throw away all the RNN machinery and pass data straight to layers based on the attention mechanism. One big advantage of doing that is that, in attention layers, you do not need to sequentially feed tokens.
+
+### Attention
+> **Don't pay attention to the librarian**
+>
+> The attention mechanism doesn't seem to be easy to understand. You will probably need to reread the explanation multiple times, from different sources. I know I did!
+> 
+> But, in fact, it's not that hard at all. I've realized the main problem with the majority of the available explanations is that they start with some kind of intuition about how attention works. The most common analogy used is of a librarian trying to find some book by matching the subjects she is interested in with the keywords of each book.
+> 
+> I suggest you to forget about all of that. As you will see, that metaphor isn't really necessary to understand the core of attention, and only applies to a particular optimized implementation, one that was not even present when attention was first proposed.
+
+In the context of transformers, there are no hidden states to be averaged, but the raw inputs themselves. This is called **self-attention**. The main idea of the self-attention is to have a weighted sum of the rows of some input matrix, and use that to *transform* each row in the matrix. More formally, if we have a matrix $X_{n \times d}$, we want to update each row $\vec{x}_i$ of this matrix as:
+
+$$\vec{x}'_i = w_{i0} \vec{x}_0 + w_{i1} \vec{x}_1 + \dots + w_{i(n-1)} \vec{x}_{n-1} = \sum_{j=0}^{n-1} w_{ij} \vec{x}_j$$
+
+where $w_{ij}$ is the weight defined for $\vec{x}_i$ to be applied to the row $j$ of $X$. Note we can update all rows by multiplying $W = [w_{ij}]$ and $X$:
+
+$$X' = WX$$
+
+For example, suppose we have the following $3 \times 4$ matrix $X$ and weights $W = [w_{ij}]$:
+
+$$X = \begin{bmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \end{bmatrix}, \quad W = \begin{bmatrix} 0.1 & 0.7 & 0.2 \\ 0.3 & 0.3 & 0.4 \\ 0.5 & 0.4 & 0.1 \end{bmatrix}$$
+
+To compute the updated first row $\vec{x}'_0$, we compute a weighted sum of all rows using the weights from the first row of $W$:
+
+$$\vec{x}'_0 = 0.1 \begin{bmatrix}1 & 2 & 3 & 4\end{bmatrix} + 0.7 \begin{bmatrix}5 & 6 & 7 & 8\end{bmatrix} + 0.2 \begin{bmatrix}9 & 10 & 11 & 12\end{bmatrix} = \begin{bmatrix}5.4 & 6.4 & 7.4 & 8.4\end{bmatrix}$$
+
+To obtain all rows:
+
+$$X' = WX = \begin{bmatrix} 5.4 & 6.4 & 7.4 & 8.4 \\ 5.4 & 6.4 & 7.4 & 8.4 \\ 3.4 & 4.4 & 5.4 & 6.4 \end{bmatrix}$$
+
+In NLP, $X$ represents $n$ word embeddings of dimension $d$. In this context, those transformations make a lot of sense, since a single, isolated word has limited information about itself. We want the other words to influence a given word's meaning. This is easier to see in words that have disparate meanings (*baseball* bat vs. *vampire* bat). But even less ambiguous words are problematic: a *smoking racing* car and a *LEGO toy* car are very different cars.
+
+So how can we make a model learn $W$ to make good transformations? First, note that we want the input $X$ and the output $X'$ to have the same dimensions $n \times d$. So $W$ must be of size $n \times n$. $W$ also needs to behave like a probability distribution, as it represents how much weight each word has on other words, proportionately. Therefore all of its entries must be between 0 and 1, and they must sum up to 1 row-wise. We can do that by taking the softmax of a score matrix $S = [s_{ij}]_{n \times n}$, such as:
+
+$$W = \text{softmax}(S), \quad w_{ij} = \frac{e^{s_{ij}}}{\sum_{k=0}^{n-1} e^{s_{ik}}}$$
+
+As all operations are differentiable, the entries of $S$ can be learned during the training using backpropagation. And there we have one of the simplest attention mechanisms, the **random attention**.
+The random part comes from the fact that the weights are initialized randomly.
+
+It can get even simpler: in the **fixed random attention**, we keep $S$ frozen, without changing its weights during training. The reason this may work (if not optimally) is somewhat surprising. In the end, it is better to have a transformation using random words than no transformation at all.
+
+One drawback of the random attention is that the size of $S$ must match the lenght of the input sentence, so all the inputs must have a fixed lenght for this to work, unless some tricks (such as padding) are applied. One way we can circumvent that is to use a matrix $U$ of size $d \times d$ and replace $S$ by $S_U$ such as:
+
+$$S_U = X_{n \times d} \cdot U_{d \times d} \cdot X^T_{d \times n}$$
+$$W_U = \text{softmax}(S_U)$$
+
+That is called **bilinear attention**. The entries of $U$ matrix are learned during the training of the model, and $S_U$ now carries the $n \times n$ raw scores.
+
+Besides allowing for varied input lenght, note that the semantics of $S$ and $S_U$ are different. Once learned, $S$ is fixed, so is $W$. This means the attention scores it carries are entirely positional. The first row of $W$ will propose the same transformation for every first word of a sentence, be that "The" or "Harry". $S_U$, on the other hand, is conditional on $X$, so is $W_U$. Their scores change during inference, depending on the words of the sentence.
+
+Let's now focus on the optimizations of the bilinear attention that leads to the attention mechanism proposed in the transformers original paper. First, we can factorize $U$ into two matrices, $U_Q$ and $U_K$, both of shape $d \times d_{k}$:
+
+$$U = U_QU_K^T$$
+
+This reduces the number of attention parameters from $d^2$ to $2 \cdot d \cdot d_k$. If  $d_k = 64$ and $d = 512$, that's 65,536 parameters instead of 262,144.
+
+We can now have a new score matrix $S_{QK}$ that uses $U_Q$ and $U_K$ instead of $U$:
+
+$$\begin{aligned}
+S_{QK} &= XU_QU_K^TX^T \\
+S_{QK} &= (XU_Q)(U_K^TX^T) \\
+S_{QK} &= (XU_Q)(XU_K)^T \\
+S_{QK} &= QK^T, \quad Q = XU_Q, \quad K = XU_K
+\end{aligned}$$
+
+For numerical stability during the training, it's a good idea to multiply $QK^T$ by $\frac{1}{\sqrt{d_k}}$, so our final $S_{QK}$ is:
+
+$$S_{QK} = \frac{QK^T}{\sqrt{d_k}}$$
+
+We have so far omited another matrix $V_{n \times d_v}$ that can be part of the attention mechanism. Its definition is given by:
+
+$$V = XU_V$$
+
+where $U_V$ is a parameter matrix of shape $d \times d_v$.
+
+In our original proposal of self-attention, we said that the transformations on the input $X$ would be made by the direct aplication of the calculated weights to $X$. This was a simplification. In reality, it has been shown that the model can learn better representations if the weights are applied to another learned matrix that is conditional on $X$. In other words, instead of
+
+$$X' = WX$$
+
+we do
+
+$$X' = WV$$
+
+Using all the previous formulas, we can now derive the attention proposed by the transformer creators:
+
+$$\begin{aligned}
+X' &= WV \\
+X' &= \text{softmax}(S_{QK}) \cdot V \\
+X' &= \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+\end{aligned}$$
