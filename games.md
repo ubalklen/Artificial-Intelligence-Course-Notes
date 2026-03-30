@@ -1,12 +1,12 @@
 # Games
 Multiagent environments, where agents compete against each other, are called **games**. The problem of finding the best strategy for a game agent can be formally defined as a kind of **search problem** with the following elements:
 
-* The **initial state** *S<sub>0</sub>*.
-* *Player(s)*: returns the player that is allowed to take action in a state *s*.
-* *Actions(s)*: returns the set of legal actions in a state *s*.
-* *Result(s,a)*: the **transition model**, which defines the result of an action *a* in the state *s*.
-* *TerminalTest(s)*: returns true if the game is over and false otherwise. A state *s* that returns true to this function is called a **terminal state**.
-* *Utility(s,p)*: a **utility function**, defines the final numerical value for a game that ends in terminal state *s* for player *p*. A **zero-sum game** is a game where the sum of all players' utilities is the same for every terminal state. This means that, in a zero-sum game, one player's utility can only increases in the exact proportion of the decreasing of other players' utilities.
+* The **initial state** $S_0$.
+* $Player(s)$: returns the player that is allowed to take action in a state $s$.
+* $Actions(s)$: returns the set of legal actions in a state $s$.
+* $Result(s,a)$: the **transition model**, which defines the result of an action $a$ in the state $s$.
+* $TerminalTest(s)$: returns true if the game is over and false otherwise. A state $s$ that returns true to this function is called a **terminal state**.
+* $Utility(s,p)$: a **utility function**, defines the final numerical value for a game that ends in terminal state $s$ for player $p$. A **zero-sum game** is a game where the sum of all players' utilities is the same for every terminal state. This means that, in a zero-sum game, one player's utility can only increases in the exact proportion of the decreasing of other players' utilities.
 
 The possible states of a game form a game tree, where the nodes are the states and the edges are the actions. The leaves of the tree are the terminal states, and we can attach to them the output of the utility function. In a 2-player zero-sum game, since the sum of the players’ utilities will always be the same, we can show the utility value of just one player.
 
@@ -21,7 +21,7 @@ We can do the following steps to find the optimal strategy for a player:
 3. Repeat the process all the way up to the initial state.
 4. Now, the optimal strategy for the Player 1 is always to select the action which leads him to a state with the maximum minimax value. Conversely, the optimal strategy for Player 2 is to choose the action to the state with the minimum minimax value.
 
-These steps are known as the **minimax algorithm**. Since the search for the optimal strategy has to check all branches of the tree for every level the tree has, if we consider a tree with *b* available actions at each node and a depth of *d*, the minimax algorithm will perform *b* evaluations at the level right below the root node, then *b\*b*, then *b\*b\*b*, all the way to the last level of the tree, where it will perform *b\*b\*b...* evaluations *d* times, which is equivalent to *b<sup>d</sup>*. So, the time complexity of the algorithm is *O(b<sup>d</sup>)*.
+These steps are known as the **minimax algorithm**. Since the search for the optimal strategy has to check all branches of the tree for every level the tree has, if we consider a tree with $b$ available actions at each node and a depth of $d$, the minimax algorithm will perform $b$ evaluations at the level right below the root node, then $b \cdot b$, then $b \cdot b \cdot b$, all the way to the last level of the tree, where it will perform $b \cdot b \cdot b \ldots$ evaluations $d$ times, which is equivalent to $b^d$. So, the time complexity of the algorithm is $O(b^d)$.
 
 The minimax algorithm is guaranteed to find an optimal strategy for a player in a 2-player zero-sum game. Unfortunately, its complexity makes it impractical even for small games. Computer scientists had to develop some techniques to make it work in more interesting games.
 
@@ -35,9 +35,9 @@ Unfortunately, since the evaluation function returns a proxy of the real minimax
 ## Alpha-Beta pruning
 One way to reduce the problem size of the minimax algorithm is cutting off branches of the game tree that won’t make a difference when calculating the minimax values. These neutral branches exist because, after calculating the minimax value of one state, we know that a sibling state won’t be chosen if it can’t be higher than the value already calculated. We also know that a state can’t be higher than some value inspecting some of its children nodes.
 
-Applied recursively, this pruning, called **alpha-beta pruning** due to the use of parameters *α* and *β* to hold the highest and lowest minimax values possible to a given state, can eliminate many states without changing the result of the minimax algorithm, turning its complexity to *O(b<sup>3d/4</sup>)* or even *O(b<sup>d/2</sup>)* if the nodes are properly ordered.
+Applied recursively, this pruning, called **alpha-beta pruning** due to the use of parameters $\alpha$ and $\beta$ to hold the highest and lowest minimax values possible to a given state, can eliminate many states without changing the result of the minimax algorithm, turning its complexity to $O(b^{3d/4})$ or even $O(b^{d/2})$ if the nodes are properly ordered.
 
 ## Handling chance and hidden information
 In **stochastic games**, i.e. games with random elements such as dice, we can adapt the game tree to deal with the randomness and be able to use the minimax algorithm. We use **expecti-minimax values** instead of the minimax values used in deterministic games. As there are multiple different states that a game may transition to given the same state and the same action, each expecti-minimax value is the *average* of the possible utilities for a player. Having these values, we apply the minimax algorithm to find the best strategy, which is the one that leads the player to the best expecti-minimax value.
 
-As we saw earlier, deterministic game trees may quickly become too big, to the point of rendering the minimax algorithm infeasible. Within stochastic games things only get worse. The complexity of the minimax algorithm for stochastic games is *O(b<sup>d</sup>n<sup>d</sup>)*, where *n* is the number of the possible outputs of the random number generator used in the game (for example, if the randomness comes from a die, *n=6*).
+As we saw earlier, deterministic game trees may quickly become too big, to the point of rendering the minimax algorithm infeasible. Within stochastic games things only get worse. The complexity of the minimax algorithm for stochastic games is $O(b^d n^d)$, where $n$ is the number of the possible outputs of the random number generator used in the game (for example, if the randomness comes from a die, $n=6$).

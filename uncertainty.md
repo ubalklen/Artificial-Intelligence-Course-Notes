@@ -7,20 +7,16 @@
 ## Probability
 In order to perform well in more complex situations, our AI agent must deal with uncertain events. To handle this, the agent designer has to introduce the concept of uncertainty in his model. The most used framework in science to deal with uncertainty is the **Probability Theory** (there are others, such as Fuzzy Logic). In Probability, a real number from 0 to 1 is attached to an event, indicating how probable that event is. If the probability of an event is 0, this means it's impossible for the event to happen. If the probability is 1, it's absolutely certain that the event will occur. For everything else we are not 100% certain, we use real numbers between 0 and 1.
 
-The events are outputs of **random variables**. The probability that the random variable *X* has the value *x* is denoted as *Pr(X = x)*. We can also simply write *Pr(X)* to refer to the probability of all possible outcomes of a random variable.
+The events are outputs of **random variables**. The probability that the random variable $X$ has the value $x$ is denoted as $Pr(X = x)$. We can also simply write $Pr(X)$ to refer to the probability of all possible outcomes of a random variable.
 
 ## Distributions
-A **distribution** is a function *P(X)* that assigns a probability to the possible values of a random variable. If the domain of a random variable is discrete, its distribution is called **probability mass function** and it's the same as *Pr(X)*. An example of probability mass function is the Poisson distribution (for the domain of natural numbers):
+A **distribution** is a function $P(X)$ that assigns a probability to the possible values of a random variable. If the domain of a random variable is discrete, its distribution is called **probability mass function** and it's the same as $Pr(X)$. An example of probability mass function is the Poisson distribution (for the domain of natural numbers):
 
-<p align="center">
-    <img src="https://latex.codecogs.com/svg.latex?P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!},\;\;k=0,1,2,\dots"/>
-</p>
+$$P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!},\;\;k=0,1,2,\dots$$
 
 If the domain of a random variable is continuous, its distribution is called **probability density function** (also known as **pdf**). An example of pdf is the exponential distribution (for the domain of non-negative real numbers):
 
-<p align="center">
-    <img src="https://latex.codecogs.com/svg.latex?P(X=z)=\lambda%20e^{-\lambda%20z},\;\;z\ge0"/>
-</p>
+$$P(X=z)=\lambda e^{-\lambda z},\;\;z\ge0$$
 
 In order to account for the continuity of the domain, a pdf does not strictly maps the elements of the domain to a probability, but to a **probability density**. The actual probability is the area under the curve of a given range of the domain. This means that the probability of any single element of the domain is zero.
 
@@ -36,7 +32,7 @@ In both examples, the parameter λ gives the flexibility of producing different 
 >
 >The first explanation for this paradox is considering the case when the probability of any event must be equal to the others. Then, if the probability of an element is greater than 0, the probability of all other elements are the same positive number. But in this case, the total probability won't sum up to 1. There are infinite elements in the set and if you sum their probabilities, even if they were small, this will result in infinite. So we say the probability of a single event is 0.
 >
->But the explanation I find more intuitive is that *Pr(X = x) = 0* in a continuous domain because a continuous domain is an uncountable set and it's **physically** impossible to pick a number from an uncountable set. Grossly speaking, an uncountable set is one that you can't elaborate an algorithm to count all its elements. This is not because the set is infinite. The set of the natural numbers is infinite, but still countable. I can devise an algorithm that counts all the natural numbers by going from 0 to 1, then to 2, then 3 and so on.
+>But the explanation I find more intuitive is that $Pr(X = x) = 0$ in a continuous domain because a continuous domain is an uncountable set and it's **physically** impossible to pick a number from an uncountable set. Grossly speaking, an uncountable set is one that you can't elaborate an algorithm to count all its elements. This is not because the set is infinite. The set of the natural numbers is infinite, but still countable. I can devise an algorithm that counts all the natural numbers by going from 0 to 1, then to 2, then 3 and so on.
 >
 >To illustrate the physical impossibility of picking a specific number in an uncountable set, let's do a thought experiment. Imagine there is a line segment that represents all real numbers from 0 to 1. Your task is to mark a specific point on this line with a pen. Let's say the point you have to mark is 0.75. You will end up with something like this:
 >
@@ -51,11 +47,11 @@ In both examples, the parameter λ gives the flexibility of producing different 
 >If you are now wondering how the hell this happened, it's because real numbers aren't really real! Mathematics is a creation of humans to try to understand the world around, but it's not a perfect representation of reality.
 
 ## Independence
-In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables *X* and *Y* are said to be independent if *P(X | Y) = P(X)* and *P(Y | X) = P(Y)*, where *P(X | Y)* reads "probability of X given that Y occurred" and is called **conditional probability**.
+In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables $X$ and $Y$ are said to be independent if $P(X | Y) = P(X)$ and $P(Y | X) = P(Y)$, where $P(X | Y)$ reads "probability of X given that Y occurred" and is called **conditional probability**.
 
-When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respective domains) is given by *P(X)\*P(Y)*. 
+When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respective domains) is given by $P(X) \cdot P(Y)$. 
 
-If the random variables do affect each other, they are called **dependent** and that means *P(X | Y) ≠ P(X)* or *P(Y | X) ≠ P(Y)*. For example, if the sky is cloudy (random variable *X*), the probability of raining (random variable *Y*) is different from the probability of raining had the sky been clear.
+If the random variables do affect each other, they are called **dependent** and that means $P(X | Y) \neq P(X)$ or $P(Y | X) \neq P(Y)$. For example, if the sky is cloudy (random variable $X$), the probability of raining (random variable $Y$) is different from the probability of raining had the sky been clear.
 
 In case two random variables are dependent, the probability of both of them happening is not the product of them anymore and is dependent on the phenomena being modeled.
 
@@ -65,7 +61,7 @@ In case two random variables are dependent, the probability of both of them happ
 ## Full Joint distribution
 *This section is under review. The following text is only a draft.*
 
-Once we define all the dependencies between the random variables, we can construct a table that assigns a probability of all possible events in a model. For example, if we have a probability model with the random variables *Toothache*, *Catch* and *Cavity*, all of them binary (i.e with outputs within the domain {True, False}), we may construct the following full point distribution table:
+Once we define all the dependencies between the random variables, we can construct a table that assigns a probability of all possible events in a model. For example, if we have a probability model with the random variables $Toothache$, $Catch$ and $Cavity$, all of them binary (i.e with outputs within the domain {True, False}), we may construct the following full joint distribution table:
 
 
 
@@ -88,7 +84,7 @@ Under Bayesian Probability, we may estimate the values of the parameters of a mo
 2. We consider the parameters themselves as random variables as well with a probability distribution. Those are called **prior distributions**. They represent our previous beliefs on the probabilities of the parameters.
 2. Then, we calibrate the prior distributions with data we have, generating **posterior distributions**.
 
-The distribution calibration is done with the Bayes' formula in the form of  *P(parameters | data)*. The calculation of the exact posterior distribution involves complex integrals that can't be solved by a computer even for simple models. Fortunately, there are numerical methods that make Bayesian inference feasible in many real-world scenarios. The most famous family of such methods is called **Markov Chain Monte Carlo (MCMC)**. The idea behind MCMC is to navigate on the possible outputs of a model and sample the posterior distribution with the right probability.
+The distribution calibration is done with the Bayes' formula in the form of  $P(parameters | data)$. The calculation of the exact posterior distribution involves complex integrals that can't be solved by a computer even for simple models. Fortunately, there are numerical methods that make Bayesian inference feasible in many real-world scenarios. The most famous family of such methods is called **Markov Chain Monte Carlo (MCMC)**. The idea behind MCMC is to navigate on the possible outputs of a model and sample the posterior distribution with the right probability.
 
 >**Bayesianism vs. Frequentism in science**
 >
