@@ -25,9 +25,9 @@ If there is only one feature, than this formula can be geometrically interpreted
 
 <p align="center"><img src="https://latex.codecogs.com/svg.latex?\text{L\textsubscript{2}Loss}(h_w)=\sum_{i=0}^m(y_i-h(\vec{x_i}))^2" /></p>
 
-where <img src="https://latex.codecogs.com/svg.latex?\vec x_i" /> is the i-th example of the traning set with *m+1* examples and <img src="https://latex.codecogs.com/svg.latex?y_i=y(\vec{x_i})" /> is the unknown function.
+where <img src="https://latex.codecogs.com/svg.latex?\vec x_i" /> is the i-th example of the training set with *m+1* examples and <img src="https://latex.codecogs.com/svg.latex?y_i=y(\vec{x_i})" /> is the unknown function.
 
-Notice that the L<sub>2</sub> loss function encodes our intuition of finding the line that best fits the data. When the line gets far away from the training set, the loss is high. Conversely, the loss gets lows when the line gets closer to the training set.
+Notice that the L<sub>2</sub> loss function encodes our intuition of finding the line that best fits the data. When the line gets far away from the training set, the loss is high. Conversely, the loss gets low when the line gets closer to the training set.
 
 We now have an optimization problem: find the set of parameters <img src="https://latex.codecogs.com/svg.latex?\vec{w}" /> that minimizes the loss function. This optimization problem have different ways to be solved, some of them described in [another note](optimization.md). The particular problem of linear regression happens to have an analytical solution as well by equaling to zero the partial derivatives of the loss function with respect to the parameters. A more general approach that works for other models is the **gradient descent**.
 
@@ -77,7 +77,7 @@ To add robustness to this process, we may split our dataset in *k* parts at rand
 ## Supervised Learning Models
 ### Decision Trees
 
-**Decision tree** is a model that uses a series of questions about the data features in order to obtain an output. it is used for classification, but can be converted to do regression as well.
+**Decision tree** is a model that uses a series of questions about the data features in order to obtain an output. It is used for classification, but can be converted to do regression as well.
 
 Let's see an example of a decision tree. In order to predict if someone will go to a certain restaurant, we can ask questions like "How many patrons are there at the moment?" or "Is the person hungry?" until we collect enough information to say "Yes" (the person is going to the restaurant) or "No" (the person isn't).
 
@@ -99,15 +99,15 @@ An extension of the decision tree model is to gather many different trees and cl
 Why combine many "dumber" decision trees instead of using one "smart" one from the beginning? Because this kind of aggregation has been showed to produce hypothesis that are more robust against overfitting, without sacrificing performance.
 
 ### Neural networks
-Another model, inspired by the neurons of the nervous system, is the (artificial) **neural network**. The biological neuron can be seen as a device that aggregates input signals and outputs some signal only if the inputs allow for a certain threshold to be reached. We can translate this ideia mathematically to form something like this:
+Another model, inspired by the neurons of the nervous system, is the (artificial) **neural network**. The biological neuron can be seen as a device that aggregates input signals and outputs some signal only if the inputs allow for a certain threshold to be reached. We can translate this idea mathematically to form something like this:
 
 <p align="center"><img src=images/neuron.png title="Neuron" /></p>
 
-The (artificial) neuron receives some inputs (*a<sub>0</sub>, a<sub>1</sub>, ..., a<sub>n</sub>*), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its architecure, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
+The (artificial) neuron receives some inputs (*a<sub>0</sub>, a<sub>1</sub>, ..., a<sub>n</sub>*), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its architecture, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
 
 <p align="center"><img src=images/neural_network.png title="Neural network" /></p>
 
-An hypothesis is constructed using the neural network model by learning the weights that best fits some training set. This learning can be achieved by the **backpropagation** algorithm. In essence, backpropagation is gradient descent applied to neural networks. It calculates the partial derivatives of the loss function with respect to the weights of the last layer and than progagates that differentation all the way back to the first layer, using the **chain rule**. With these derivatives, gradient descent allows us to update all the weights in a direction that reduces the total loss.
+An hypothesis is constructed using the neural network model by learning the weights that best fits some training set. This learning can be achieved by the **backpropagation** algorithm. In essence, backpropagation is gradient descent applied to neural networks. It calculates the partial derivatives of the loss function with respect to the weights of the last layer and then propagates that differentiation all the way back to the first layer, using the **chain rule**. With these derivatives, gradient descent allows us to update all the weights in a direction that reduces the total loss.
 
 > **The Revenge of the Perceptron**
 >
@@ -130,9 +130,9 @@ Unsupervised learning also encompasses methods that automatically reduce the num
 ## Clustering Methods
 ### K-means clustering
 
-**K-means clustering** in a unsupervised learning model that 
+**K-means clustering** is an unsupervised learning model that assigns datapoints to clusters.
 
-The learning process of k-means clustering uses a **expectation-maximization (E-M) algorithm**. First a number of clusters is previously defined. Then a **cluster point** is set at random for each. Each datapoint in the training set is appointed to the cluster represented by the nearest cluster point. Then the mean of the points in each cluster is calculated and become the new cluster point. The process repeats back-and-forth until convergence. The following figure shows the learning in a 2D space (extracted from "Pattern Recognition and Machine Learning" book by Christopher Bishop):
+The learning process of k-means clustering uses an **expectation-maximization (E-M) algorithm**. First a number of clusters is previously defined. Then a **cluster point** is set at random for each. Each datapoint in the training set is appointed to the cluster represented by the nearest cluster point. Then the mean of the points in each cluster is calculated and become the new cluster point. The process repeats back-and-forth until convergence. The following figure shows the learning in a 2D space (extracted from "Pattern Recognition and Machine Learning" book by Christopher Bishop):
 
 <p align="center"><img src=images/k-means.png title="K-means" /></p>
 
@@ -157,7 +157,7 @@ where *q* is the fraction of samples equal to 1. In other words, the inequality 
 
 We can adapt the binary classification learning problem to the probabilistic framework to use that result. First, we need a probability distribution. We can make one by considering *X* as a random variable with the same domain as *y(x)*, our unknown function. Therefore there is a probability distribution *P(X)* from where we can sample feature vectors <img src="https://latex.codecogs.com/svg.latex?\vec{x_1}, ..., \vec{x_n}" />. We assume that our training set has been sampled in this fashion.
 
-Then, we pick some hypothesis *h* and check the fraction of inputs it predicts the right outputs. In other words, we calculate *E<sub>in</sub>(h)*. This calculation gives us a number that is equivalent to the fraction of positives samples one has obtained from a Bernoulli distribution. So, according to our friend Hoeffding, we can say something about the probability of our hypothesis predicting right in general (i.e. *E<sub>out</sub>(h)*):
+Then, we pick some hypothesis *h* and check the fraction of inputs it predicts the right outputs. In other words, we calculate *E<sub>in</sub>(h)*. This calculation gives us a number that is equivalent to the fraction of positive samples one has obtained from a Bernoulli distribution. So, according to our friend Hoeffding, we can say something about the probability of our hypothesis predicting right in general (i.e. *E<sub>out</sub>(h)*):
 
 P(|E<sub>in</sub>(h)-E<sub>out</sub>(h)| > ϵ) ≤ 2e<sup>-2ϵ<sup>2</sup>N</sup>
 
@@ -229,11 +229,11 @@ That is almost the exact same formula as the one we provided to compute regulari
 > Machine and statistical learning are similar areas of study, but with different origins. The former is traditionally linked to Computer Science, while the latter was born in the Statistic departments. There is an ongoing debate on which one is the best approach for learning.
 >
 > Defenders of the statistical approach argue that:
-> * it makes its assumption more explicitly, which helps to think about a the limits of model;
+> * it makes its assumption more explicitly, which helps to think about the limits of a model;
 > * it provides a framework for more honest comparisons between models, since one can quantify the uncertainty of the model's results;
 > * it is less data hungry because you can incorporate existing expert knowledge in form of priors to overcome the lack of training data.
 >
->Criticts of the statistical learning argue that:
+>Critics of the statistical learning argue that:
 >* the complications associated with statistical analysis often are not necessary to obtain models with state-of-the-art performance;
 >* priors are tricky to build and requires expert knowledge;
 >* there is no clear path to generalize and automate the learning process, because every problem demands an expert to do the proper analysis

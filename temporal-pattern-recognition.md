@@ -1,14 +1,14 @@
 # Temporal Pattern Recognition
 *This whole note is under review. The following text is only a draft.*
 
-[Machine Learning](machine-learning.md) helps us to identify patterns in static data, but it's not directly suited to deal with patterns in data that varies in time.
+Classical [Machine Learning](machine-learning.md) helps us to identify patterns in static data, but it's not directly suited to deal with patterns in data that varies in time.
 
 ## Dynamic Time Warping
 **Dynamic time warping (DTW)** is a technique to measure the similarity between two **time series**. A time series is a sequence of data points ordered by time, e.g the values of a stock in the stock exchange during some period. We could measure the difference between two time series by simply summing up the differences between the series in each time unit, but that would not account for differences in **phase**.
 
 DTW is a more smart approach that tries to account for the phase. Instead of summing up the differences between the points of the same time unit, we sum the differences between the minimal differences between the data points.
 
-### Markov Processes
+## Markov Processes
 A **Markov process** is a statistical model that can be applied to the problem of finding patterns in temporal data. It's modeled as follows. First, we assume time is discrete and represented by the set of positive integers (*t = 1, 2, 3 ...*). Second, we assume data at time *t* comes from a discrete random variable *X<sub>t<sub>* with a domain *S = {s<sub>1</sub>, ... , s<sub>n</sub>}*, and the probability of each outcome depends on the past outcomes. Then, we make the **Markov assumption**: the number of previous outcomes that influences on the probability of the current outcome is a fixed positive integer *k*. If *k=1*, we have a **first-order Markov process** that can represented as a Bayesian network.
 
 <p align="center"><img src="images\markov_process.png" title="First-order Markov process"/></p>

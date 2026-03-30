@@ -2,7 +2,7 @@
 
 >**An Introductory Note**
 >
->Dealing with uncertainty has all to do with Probability. At first, I thought it would be easy. Coins have 50% of chance to fall on each site, dice have 1/6, and so on. I soon found out it's not the case. Probability is *very hard*. It doesn't help that most material throws the bunch of the theory right away, only to apply all that powerhorse to very contrived toy examples. This is somewhat frustrating. Fortunately, there is a gem called [Bayesian Methods for Hackers](https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers). I highly recommend anyone with a Computer Science background struggling with probability to take a look at that material, which is free and in a Python notebook format. Not only that helped me to better understand Probability, it also made me enjoy it. In fact, I've got so interested that I'm creating a separate note repository which dives a little deeper than this one on the subject.
+>Dealing with uncertainty has all to do with Probability. At first, I thought it would be easy. Coins have 50% of chance to fall on each site, dice have 1/6, and so on. I soon found out it's not the case. Probability is *very hard*. It doesn't help that most material throws the bunch of the theory right away, only to apply all that powerhouse to very contrived toy examples. This is somewhat frustrating. Fortunately, there is a gem called [Bayesian Methods for Hackers](https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers). I highly recommend anyone with a Computer Science background struggling with probability to take a look at that material, which is free and in a Python notebook format. Not only that helped me to better understand Probability, it also made me enjoy it. In fact, I've got so interested that I'm creating a separate note repository which dives a little deeper than this one on the subject.
 
 ## Probability
 In order to perform well in more complex situations, our AI agent must deal with uncertain events. To handle this, the agent designer has to introduce the concept of uncertainty in his model. The most used framework in science to deal with uncertainty is the **Probability Theory** (there are others, such as Fuzzy Logic). In Probability, a real number from 0 to 1 is attached to an event, indicating how probable that event is. If the probability of an event is 0, this means it's impossible for the event to happen. If the probability is 1, it's absolutely certain that the event will occur. For everything else we are not 100% certain, we use real numbers between 0 and 1.
@@ -10,13 +10,13 @@ In order to perform well in more complex situations, our AI agent must deal with
 The events are outputs of **random variables**. The probability that the random variable *X* has the value *x* is denoted as *Pr(X = x)*. We can also simply write *Pr(X)* to refer to the probability of all possible outcomes of a random variable.
 
 ## Distributions
-A **distribution** is a function *P(X)* that assigns a probability to the possible values of a random variable. If the domain of a random variable is discrete, it's distribution is called **probability mass function** and it's the same as *Pr(X)*. An example of probability mass function is the Poisson distribution (for the domain of natural numbers):
+A **distribution** is a function *P(X)* that assigns a probability to the possible values of a random variable. If the domain of a random variable is discrete, its distribution is called **probability mass function** and it's the same as *Pr(X)*. An example of probability mass function is the Poisson distribution (for the domain of natural numbers):
 
 <p align="center">
     <img src="https://latex.codecogs.com/svg.latex?P(X=k)=\frac{\lambda^ke^{-\lambda}}{k!},\;\;k=0,1,2,\dots"/>
 </p>
 
-If the domain of a random variable is continuous, it's distribution is called **probability density function** (also known as **pdf**). An example of pdf is the exponential distribution (for the domain of non-negative real numbers):
+If the domain of a random variable is continuous, its distribution is called **probability density function** (also known as **pdf**). An example of pdf is the exponential distribution (for the domain of non-negative real numbers):
 
 <p align="center">
     <img src="https://latex.codecogs.com/svg.latex?P(X=z)=\lambda%20e^{-\lambda%20z},\;\;z\ge0"/>
@@ -34,9 +34,9 @@ In both examples, the parameter λ gives the flexibility of producing different 
 >
 >Still, this incomprehension bothers me. But I've been able to find some explanations that are somewhat convincing. In the end, I elaborate myself an argument that allows me to sleep at night.
 >
->The first explanation for this paradox is considering the case when the probability of any event must be equal to the others. Then, if the probability of an element is greater than 0, the probability of all other elements are the same positive number. But in this case, the total probability won't some up to 1. There are infinite elements in the set and if you sum their probabilities, even if they were small, this will result in infinite. So we say the probability of a single event is 0.
+>The first explanation for this paradox is considering the case when the probability of any event must be equal to the others. Then, if the probability of an element is greater than 0, the probability of all other elements are the same positive number. But in this case, the total probability won't sum up to 1. There are infinite elements in the set and if you sum their probabilities, even if they were small, this will result in infinite. So we say the probability of a single event is 0.
 >
->But the explanation I find more intuitive is that *Pr(X = x) = 0* in a continuous domain because a continuous domain is an uncountable set and it's **physically** impossible to pick a number from an uncountable set. Grossly speaking, an uncountable set is one that you can't elaborate an algorithm to count all its elements. This is not because the set is infinite. The set of the natural numbers is infinite, but still countable. I can devise an algorithm that count all the natural numbers by going from 0 to 1, then to 2, than 3 and so on.
+>But the explanation I find more intuitive is that *Pr(X = x) = 0* in a continuous domain because a continuous domain is an uncountable set and it's **physically** impossible to pick a number from an uncountable set. Grossly speaking, an uncountable set is one that you can't elaborate an algorithm to count all its elements. This is not because the set is infinite. The set of the natural numbers is infinite, but still countable. I can devise an algorithm that counts all the natural numbers by going from 0 to 1, then to 2, then 3 and so on.
 >
 >To illustrate the physical impossibility of picking a specific number in an uncountable set, let's do a thought experiment. Imagine there is a line segment that represents all real numbers from 0 to 1. Your task is to mark a specific point on this line with a pen. Let's say the point you have to mark is 0.75. You will end up with something like this:
 >
