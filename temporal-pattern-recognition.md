@@ -34,6 +34,8 @@ In such a model, we can suggest the next word in a text (a common feature of tex
 ## Hidden Markov Models
 Markov process are only useful when the pattern in the sequence can be directly observed. In our NLP example, we can observe the words of a sentence. But there are interesting problems that we can't observe the sequence directly, but we can observe a related random variable. For example, in gesture language recognition, we are usually interested in the words behind the gestures, but all we can see are the gestures themselves. **Hidden Markov Model** is a extension of the Markov process that deal with those cases.
 
+*To be continued...*
+
 We assume the process is **stationary**, i.e there is a fixed $n \times n$ **transition matrix** $A$ that holds the conditional probabilities of every random variable $X\_t$ in the model, where $n$ is the size of the random variables' domain (denoted as $S = \{S\_1, \ldots, S\_n\}$). The process is called stationary because $A$ is the same regardless of the time $t$. In mathematical notation:
 
 $$
@@ -80,6 +82,7 @@ In 2017, in a paper aptly named ["Attention Is All You Need"](https://arxiv.org/
 > The above references have one thing in common: they jump straight to the math. This is the best way to understand attention.
 > 
 > The main problem with the majority of the available explanations is that they try to push too hard some kind of intuition about how attention works. The most common analogy used is of a librarian trying to find some book by matching the subjects she is interested in with the keywords of each book. I suggest you to forget about all of that. As you will see, that metaphor isn't really necessary to understand the core of attention, and only applies to a particular optimized implementation, one that was not even present when attention was first proposed.
+> The main problem with the majority of the available explanations is that they try to push too hard some kind of intuition about how attention works. The most common analogy used is of a librarian trying to find some book by matching the subjects she is interested in with the keywords of each book. I suggest you to forget about all of that. As you will see, that metaphor isn't really necessary to understand the core of attention, and only applies to a particular optimized implementation, one that was not even present when attention was first proposed. 
 
 In the context of transformers, there are no hidden states to be averaged, but the raw inputs themselves. This is called **self-attention**. The main idea of the self-attention is to have a weighted sum of the rows of some input matrix, and use that to *transform* each row in the matrix. More formally, if we have a matrix $X\_{n \times d}$, we want to update each row $\vec{x}\_i$ of this matrix as:
 
@@ -185,5 +188,7 @@ X^\prime &= \text{softmax}(S_{QK}) \cdot V \\
 X^\prime &= \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
 \end{aligned}
 $$
+
+*To be continued (multi-heads, masking)...*
 
 *To be continued (multi-heads, masking)...*
