@@ -189,5 +189,3 @@ X^\prime &= \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
 $$
 
 *To be continued (multi-heads, masking)...*
-
-*To be continued (multi-heads, masking)...*
