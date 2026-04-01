@@ -177,7 +177,7 @@ $$X^\prime = WX$$
 we do
 
 $$X^\prime = WV$$
-This is known as the **fixed-length bottleneck**.
+
 Using all the previous formulas, we can now derive the attention proposed by the transformer creators:
 
 $$
