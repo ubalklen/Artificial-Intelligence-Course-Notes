@@ -8,7 +8,7 @@ This repository is a collection of notes I wrote when I took the [CS 6601: Artif
 * [Optimization](optimization.md)
 * [Uncertainty](uncertainty.md)
 * [Machine Learning](machine-learning.md)
-* [Temporal Pattern Recognition](temporal-pattern-recognition.md)
+* [Temporal Pattern Recognition and Natural Language Processing](temporal-pattern-recognition-nlp.md)
 * [Reinforcement Learning](reinforcement-learning.md)
 * Planning
 
