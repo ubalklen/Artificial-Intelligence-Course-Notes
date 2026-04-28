@@ -1,0 +1,32 @@
+title: AI Course Notes
+description: Concise, high-level notes from Georgia Tech's CS 6601 (AI), CS 7642 (RL), and CS 7641 (ML) courses.
+
+remote_theme: just-the-docs/just-the-docs
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+permalink: pretty
+heading_anchors: true
+search_enabled: false
+
+kramdown:
+  math_engine: null
+  syntax_highlighter: rouge
+
+color_scheme: light
+
+aux_links:
+  "View on GitHub":
+    - "https://github.com/ubalklen/Artificial-Intelligence-Course-Notes"
+
+aux_links_new_tab: true
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - .vscode/
+  - .git/
