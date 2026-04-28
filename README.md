@@ -1,4 +1,6 @@
 # Artificial Intelligence Course Notes
+https://ubalklen.github.io/Artificial-Intelligence-Course-Notes/
+
 This repository is a collection of notes I wrote when I took the [CS 6601: Artificial Intelligence](https://www.omscs.gatech.edu/cs-6601-artificial-intelligence), [CS 7642: Reinforcement Learning](http://omscs.gatech.edu/cs-7642-reinforcement-learning) and [CS 7641: Machine Learning](https://omscs.gatech.edu/cs-7641-machine-learning) courses at Georgia Tech. They're a concise, high-level description of the concepts taught on those courses.
 
 ## Table of Contents
