@@ -1,4 +1,11 @@
+---
+layout: default
+title: Uncertainty
+nav_order: 5
+---
+
 # Uncertainty
+
 
 >**An Introductory Note**
 >
@@ -47,11 +54,11 @@ In both examples, the parameter λ gives the flexibility of producing different 
 >If you are now wondering how the hell this happened, it's because real numbers aren't really real! Mathematics is a creation of humans to try to understand the world around, but it's not a perfect representation of reality.
 
 ## Independence
-In a **probability model**, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables $X$ and $Y$ are said to be independent if $P(X | Y) = P(X)$ and $P(Y | X) = P(Y)$, where $P(X | Y)$ reads "probability of X given that Y occurred" and is called **conditional probability**.
+In a probabilistic model, we usually identify more than one random variable. We say that two random variables are **independent** if the output of one variable doesn't affect the probability of the other. For example, if you throw one die and one coin, the fact that the die outputs 6 doesn't influence the output of the coin (it still has the same probability of producing heads or tails had you only thrown the coin). In mathematical notation, the random variables $X$ and $Y$ are said to be independent if $P(X \mid Y) = P(X)$ and $P(Y \mid X) = P(Y)$, where $P(X \mid Y)$ reads "probability of X given that Y occurred" and is called **conditional probability**.
 
 When the random variables are independent, their **joint probability** (i.e. the probability of both of them output a specific element from their respective domains) is given by $P(X) \cdot P(Y)$. 
 
-If the random variables do affect each other, they are called **dependent** and that means $P(X | Y) \neq P(X)$ or $P(Y | X) \neq P(Y)$. For example, if the sky is cloudy (random variable $X$), the probability of raining (random variable $Y$) is different from the probability of raining had the sky been clear.
+If the random variables do affect each other, they are called **dependent** and that means $P(X \mid Y) \neq P(X)$ or $P(Y \mid X) \neq P(Y)$. For example, if the sky is cloudy (random variable $X$), the probability of raining (random variable $Y$) is different from the probability of raining had the sky been clear.
 
 In case two random variables are dependent, the probability of both of them happening is not the product of them anymore and is dependent on the phenomena being modeled.
 
@@ -84,7 +91,7 @@ Under Bayesian Probability, we may estimate the values of the parameters of a mo
 2. We consider the parameters themselves as random variables as well with a probability distribution. Those are called **prior distributions**. They represent our previous beliefs on the probabilities of the parameters.
 2. Then, we calibrate the prior distributions with data we have, generating **posterior distributions**.
 
-The distribution calibration is done with the Bayes' formula in the form of  $P(parameters | data)$. The calculation of the exact posterior distribution involves complex integrals that can't be solved by a computer even for simple models. Fortunately, there are numerical methods that make Bayesian inference feasible in many real-world scenarios. The most famous family of such methods is called **Markov Chain Monte Carlo (MCMC)**. The idea behind MCMC is to navigate on the possible outputs of a model and sample the posterior distribution with the right probability.
+The distribution calibration is done with the Bayes' formula in the form of  $P(parameters \mid data)$. The calculation of the exact posterior distribution involves complex integrals that can't be solved by a computer even for simple models. Fortunately, there are numerical methods that make Bayesian inference feasible in many real-world scenarios. The most famous family of such methods is called **Markov Chain Monte Carlo (MCMC)**. The idea behind MCMC is to navigate on the possible outputs of a model and sample the posterior distribution with the right probability.
 
 >**Bayesianism vs. Frequentism in science**
 >

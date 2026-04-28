@@ -1,4 +1,11 @@
+---
+layout: default
+title: Games
+nav_order: 2
+---
+
 # Games
+
 Multiagent environments, where agents compete against each other, are called **games**. The problem of finding the best strategy for a game agent can be formally defined as a kind of **search problem** with the following elements:
 
 * The **initial state** $S_0$.

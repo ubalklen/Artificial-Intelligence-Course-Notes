@@ -1,4 +1,11 @@
+---
+layout: default
+title: Initial Concepts
+nav_order: 1
+---
+
 # Initial Concepts
+
 
 ## Definitions
 There are many definitions for AI. Most of them can be divided into four groups:

@@ -1,4 +1,11 @@
+---
+layout: default
+title: Search
+nav_order: 3
+---
+
 # Search
+
 Some solutions to the problems tackled by AI can be thought as finding the **best path** in a [weighted graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Weighted_graph). Each node of the graph represents a possible state. Each edge represents a transition between states. Each edge weight represents the cost of the transition. A valid path is a sequence of connected nodes from a initial node to the goal node.
 
 The best path is the one which is optimal according to some metric, usually the **total path cost**. For example, when solving a Rubik’s Cube, we want to go from a shuffled cube (initial state) to a solved cube (goal state). Each movement of the cube (transition) get us to an intermediate state. The best way to solve a cube is reaching the goal state with the lowest number of movements as possible.

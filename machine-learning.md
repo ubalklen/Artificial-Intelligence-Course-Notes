@@ -1,4 +1,11 @@
+---
+layout: default
+title: Machine Learning
+nav_order: 6
+---
+
 # Machine Learning
+
 **Machine learning** (ML) is the study of algorithms that finds a function (**hypothesis** in ML jargon) that best approximates an **unknown function** by automatically uncovering patterns in the data. Each datapoint (or **example**) is composed of one or more **features**. The **learning** (also known as **training**) refers to the step where the algorithm tries to find the best hypothesis, usually the result of an **optimization problem**. Because the hypothesis is a known function capable of giving us answers about the unknown function, we say its outputs are **predictions**.
 
 For example, in optical character recognition, where we want to know what character is being represented in an image, it is very hard to create an efficient algorithm by trying to solve the problem directly. We would have to think about all the possible variations of every single character. Within the ML framework, we deal with this problem by assuming there is some unknown function which outputs a character using an image, represented by its features, as an input. These features may be the colors and positions of the image's pixels. We then build an algorithm that will hopefully find a hypothesis that best approximates that image-to-character function automatically.
@@ -103,7 +110,7 @@ Another model, inspired by the neurons of the nervous system, is the (artificial
 
 ![Neuron](images/neuron.png)
 
-The (artificial) neuron receives some inputs ($a_0, a_1, \ldots, a_n$), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its architecture, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
+The (artificial) neuron receives some inputs ($a_0, a_1, \ldots, a_n$), computes their weighted sum, uses this sum as the input of an **activation function** and outputs its result. We can connect these units and group them by **layers**. Depending on its **architecture**, a neural network may generate complicated hypothesis that are more suitable to approximate some types of unknown functions.
 
 ![Neural network](images/neural_network.png)
 
@@ -151,7 +158,7 @@ In English, can we guarantee that a learning procedure can produce a hypothesis 
 
 We will focus our study on the binary classification problem. From the Probability Theory, one famous theorem is the **Hoeffding's inequality**. In a special case, it says that if we take $N$ samples from a **Bernoulli distribution** (a probability distribution over the domain $\{0, 1\}$, where $P(1) = p$ and $P(0) = 1-p$), then:
 
-$$P(|p-q| > \epsilon) \leq 2e^{-2\epsilon^2 N}$$
+$$P(\lvert p-q \rvert > \epsilon) \leq 2e^{-2\epsilon^2 N}$$
 
 where $q$ is the fraction of samples equal to 1. In other words, the inequality shows that there is an upper bound in the probability of getting a $q$ that is not close to $p$. It is a mathematical proof that it is possible to be confident about the value of an unknown parameter by only looking at an empirical estimative of that parameter, as long as we have sufficient samples (a sufficient large $N$) or we accept a certain error margin (a sufficient large $\epsilon$).
 
@@ -159,7 +166,7 @@ We can adapt the binary classification learning problem to the probabilistic fra
 
 Then, we pick some hypothesis $h$ and check the fraction of inputs it predicts the right outputs. In other words, we calculate $E_{in}(h)$. This calculation gives us a number that is equivalent to the fraction of positive samples one has obtained from a Bernoulli distribution. So, according to our friend Hoeffding, we can say something about the probability of our hypothesis predicting right in general (i.e. $E_{out}(h)$):
 
-$$P(|E_{in}(h)-E_{out}(h)| > \epsilon) \leq 2e^{-2\epsilon^2 N}$$
+$$P(\lvert E_{in}(h)-E_{out}(h) \rvert > \epsilon) \leq 2e^{-2\epsilon^2 N}$$
 
 And here we have a mathematical guarantee that it is possible to have confidence that $E_{in}(h) \approx E_{out}(h)$ by only looking at $E_{in}(h)$. This an important step towards our goal ($E_{in}(h) \approx E_{out}(h) \approx 0$).
 
@@ -167,25 +174,25 @@ Unfortunately, the previous result is weaker than it seems. The inequality only 
 
 Assume our learning process pick its hypothesis from a finite hypothesis set $H = \{h_1, \ldots, h_M\}$ of size $M$ (a very troublesome assumption, as it will soon be clear). Let's call $g \in H$ the function that has been chosen after the learning process. We know that $g$ is one of the hypothesis in $H$, so:
 
-$$P(|E_{in}(g)-E_{out}(g)| > \epsilon) = P(|E_{in}(h_1)-E_{out}(h_1)| > \epsilon)$$
+$$P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon) = P(\lvert E_{in}(h_1)-E_{out}(h_1) \rvert > \epsilon)$$
 
-or
+<p style="text-align: center;">or</p>
 
-$$P(|E_{in}(g)-E_{out}(g)| > \epsilon) = P(|E_{in}(h_2)-E_{out}(h_2)| > \epsilon)$$
+$$P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon) = P(\lvert E_{in}(h_2)-E_{out}(h_2) \rvert > \epsilon)$$
 
-or
+<p style="text-align: center;">or</p>
 
-...
+<p style="text-align: center;">...</p>
 
-or
+<p style="text-align: center;">or</p>
 
-$$P(|E_{in}(g)-E_{out}(g)| > \epsilon) = P(|E_{in}(h_M)-E_{out}(h_M)| > \epsilon)$$
+$$P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon) = P(\lvert E_{in}(h_M)-E_{out}(h_M) \rvert > \epsilon)$$
 
-Since $P(|E_{in}(h_i)-E_{out}(h_i)| > \epsilon) \leq 2e^{-2\epsilon^2 N}$ for each $h_i$ in $H$, the maximum value of $P(|E_{in}(g)-E_{out}(g)| > \epsilon)$ is $M$ times $2e^{-2\epsilon^2 N}$. Therefore we have:
+Since $P(\lvert E_{in}(h_i)-E_{out}(h_i) \rvert > \epsilon) \leq 2e^{-2\epsilon^2 N}$ for each $h_i$ in $H$, the maximum value of $P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon)$ is $M$ times $2e^{-2\epsilon^2 N}$. Therefore we have:
 
-$$P(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq 2Me^{-2\epsilon^2 N}$$
+$$P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon) \leq 2Me^{-2\epsilon^2 N}$$
 
-Now this is a guarantee on the entire learning process. The probability that the performance in the training set of the $g$ function generated by our learning process will be very different from the performance in the test set has an upper bound. Still, it is a useless guarantee in the current form. This is because in practice the hypothesis set will be infinite for all but very simple models. So most of the time $M = \infty$ and all we have is that $P(|E_{in}(g)-E_{out}(g)| > \epsilon) \leq \infty$. Not exactly a breakthrough...
+Now this is a guarantee on the entire learning process. The probability that the performance in the training set of the $g$ function generated by our learning process will be very different from the performance in the test set has an upper bound. Still, it is a useless guarantee in the current form. This is because in practice the hypothesis set will be infinite for all but very simple models. So most of the time $M = \infty$ and all we have is that $P(\lvert E_{in}(g)-E_{out}(g) \rvert > \epsilon) \leq \infty$. Not exactly a breakthrough...
 
 Fortunately, there is a smart way to switch M for a smaller number. First, consider all the possible different predictions that a hypothesis can generate for a given training set of size $N$. For example, if we have the training set $\{x_1, x_2\}$, we can have at most the following distinct predictions: (0, 0), (0, 1), (1, 0) and (1, 1). We call each of these tuples as a **dichotomy** of the hypothesis space $H$ within a given training set if there is a hypothesis in $H$ that can output that tuple. In general, a hypothesis set can have at most $2^N$ dichotomies for any given training set. Notice that any hypothesis set has a finite number of dichotomies for each training set, even if the size of the hypothesis set is infinite. Also, some hypothesis sets can have a smaller number of dichotomies for specific training sets because they may be not be "powerful" enough to express all the possible outputs. For example, logistic regression cannot perfectly classify data that is not linearly separable, so the prediction tuple that perfectly classify some training sets will not be one of the dichotomies of the hypothesis set defined by logistic regression in those training sets.
 
@@ -202,11 +209,11 @@ $$P(S)=\prod_{i=0}^mP(\vec{x_i},y_i)$$
 
 We assume the unknown function is in the form of $h_w(\vec{x})=\vec{w}\cdot\vec{x}$ and that each $y_i$ was sampled subject to a normally distributed error $\epsilon_i$, so $y_i=h_w(\vec{x})+\epsilon_i$. In this case, we have:
 
-$$P(y_i|\vec{x_i},\vec{w})=\mathcal{N}(h_w(\vec{x_i}),\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2\right)$$
+$$P(y_i \mid \vec{x_i},\vec{w})=\mathcal{N}(h_w(\vec{x_i}),\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y_i-h_w(\vec{x_i}))^2\right)$$
 
-If we think $\vec{w}$ is a fixed vector, one way to solve our problem is to find the weights that maximize the probability of the training set, i.e we want the **maximum likelihood** $P(S|\vec{w})$. We can expand this term as follows:
+If we think $\vec{w}$ is a fixed vector, one way to solve our problem is to find the weights that maximize the probability of the training set, i.e we want the **maximum likelihood** $P(S \mid \vec{w})$. We can expand this term as follows:
 
-$$\begin{aligned}P(S|\vec{w})&=\prod_{i=0}^mP(\vec{x_i},y_i|\vec{w})\\&=\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i}|\vec{w})&&&&\text{conditional probability rule}\\&=\prod_{i=0}^mP(y_i|\vec{x_i},\vec{w})P(\vec{x_i})&&&&\text{assuming}\,\vec{x_i}\,\text{doesn't depend on}\,\vec{w}\end{aligned}$$
+$$\begin{aligned}P(S \mid \vec{w})&=\prod_{i=0}^mP(\vec{x_i},y_i \mid \vec{w})\\&=\prod_{i=0}^mP(y_i \mid \vec{x_i},\vec{w})P(\vec{x_i} \mid \vec{w})&&&&\text{conditional probability rule}\\&=\prod_{i=0}^mP(y_i \mid \vec{x_i},\vec{w})P(\vec{x_i})&&&&\text{assuming}\,\vec{x_i}\,\text{doesn't depend on}\,\vec{w}\end{aligned}$$
 
 Now, we solve our **maximum likelihood estimation (MLE)** algorithm:
 
@@ -214,11 +221,11 @@ Now, we solve our **maximum likelihood estimation (MLE)** algorithm:
 
 So, to find the best set of weights, we pick the one that minimizes the sum of squared errors, which is exactly the same thing as we did in our original presentation of the linear regression.
 
-Moreover, if we don't consider $\vec{w}$ a fixed value, but a random variable with a prior probability distribution, Bayesian inference may be used to obtain a posterior distribution. This suggest an alternative for the maximum likelihood algorithm, namely the **maximum a posteriori (MAP)** algorithm. We now want the $\vec{w}_{\text{MAP}}$ with the maximum posterior probability $P(\vec{w}|S)$. Considering $\vec{w}$ follows a [multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) with $\mu = 0$ and $\Sigma = (2\lambda)^{-1}I$, where $I$ is the $n+1$ identity matrix, we have:
+Moreover, if we don't consider $\vec{w}$ a fixed value, but a random variable with a prior probability distribution, Bayesian inference may be used to obtain a posterior distribution. This suggest an alternative for the maximum likelihood algorithm, namely the **maximum a posteriori (MAP)** algorithm. We now want the $\vec{w}_{\text{MAP}}$ with the maximum posterior probability $P(\vec{w} \mid S)$. Considering $\vec{w}$ follows a [multivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) with $\mu = 0$ and $\Sigma = (2\lambda)^{-1}I$, where $I$ is the $n+1$ identity matrix, we have:
 
 ![Maximum a Posteriori (MAP)](images/map.svg)
 
-From the MLE, we know how to minimize $-\log P(S|\vec{w})$. Thus, if we plug the definition of $P(\vec{w})$ into the equation, we end up with:
+From the MLE, we know how to minimize $-\log P(S \mid \vec{w})$. Thus, if we plug the definition of $P(\vec{w})$ into the equation, we end up with:
 
 $$\vec{w}_{\text{MAP}}=\operatorname*{argmin}_{\vec{w}}\left[\sum_{i=0}^m(y_i-h_w(\vec{x_i}))^2+\lambda\sum_{j=0}^nw_j^2\right]$$
 

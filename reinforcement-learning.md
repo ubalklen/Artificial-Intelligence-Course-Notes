@@ -1,4 +1,11 @@
+---
+layout: default
+title: Reinforcement Learning
+nav_order: 8
+---
+
 # Reinforcement Learning
+
 *This whole note is under review. The following text is only a draft.*
 
 Reinforcement Learning (RL) is the study of agents that learn how to achieve some goal by maximizing rewards in some environment. It's inspired by the punishment and pleasure mechanisms present in animals, including humans. A living being, using its sensors to get signals from the environment, learn from experience the actions that should be done and the ones that should be avoided, all without a detailed prior model of how the environment works. RL builds upon this idea to create intelligent algorithms.
@@ -37,7 +44,7 @@ Notice the $\gamma$ factor determines how much weight is given to future rewards
 
 Because of the stochasticity of the MDP, we are not really interested in the return, which is specific to a single walk, but in the expectation of returns. We call that expectation as the **value** of a state. The value function V is defined as follows:
 
-$$\begin{aligned}V_\pi(s)&=\mathbb{E}[G_t|s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+...|s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma(r_{t+2}+\gamma r_{t+3}+\gamma^2 r_{t+4}...)|s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma G_{t+1}|s_t=s]\\&=\sum_{s'\in{S}}T(s,\pi(s),s')[R(s,\pi(s),s')+\gamma\mathbb{E}[G_{t+1}|s_{t+1}=s']]\\&=\sum_{s'\in{S}}T(s,\pi(s),s')[R(s,\pi(s),s')+\gamma V_\pi(s')]]\end{aligned}$$
+$$\begin{aligned}V_\pi(s)&=\mathbb{E}[G_t \mid s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+... \mid s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma(r_{t+2}+\gamma r_{t+3}+\gamma^2 r_{t+4}...) \mid s_t=s]\\&=\mathbb{E}[r_{t+1}+\gamma G_{t+1} \mid s_t=s]\\&=\sum_{s'\in{S}}T(s,\pi(s),s')[R(s,\pi(s),s')+\gamma\mathbb{E}[G_{t+1} \mid s_{t+1}=s']]\\&=\sum_{s'\in{S}}T(s,\pi(s),s')[R(s,\pi(s),s')+\gamma V_\pi(s')]]\end{aligned}$$
 
 Where $\pi$ is the policy being followed by the agent. In its last recursive form, V is called a **Bellman equation**.
 
@@ -94,11 +101,11 @@ Remember that policy iteration is composed of two steps: policy evaluation and p
 
 But notice that in order to calculate how good an action $a$ does in a state $s$ as in the original policy iteration algorithm, we need to sum all the possible rewards multiplied by the probability of transitioning to each possible new state. This means we need to know $T$, which we don't have. To circumvent this issue, we can use a variant of the $V$ function called $Q$ that takes a state and an action as inputs and returns the expected return under some policy. Using mathematical notation, $Q$ is defined as follows:
 
-$$\begin{aligned}Q_\pi(s,a)&=\mathbb{E}[G_t|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+...|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma(r_{t+2}+\gamma r_{t+3}+\gamma^2 r_{t+4}...)|s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma G_{t+1}|s_t=s,a_t=a]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma\mathbb{E}[G_{t+1}|s_{t+1}=s']]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma V_\pi(s')]\end{aligned}$$
+$$\begin{aligned}Q_\pi(s,a)&=\mathbb{E}[G_t \mid s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2r_{t+3}+... \mid s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma(r_{t+2}+\gamma r_{t+3}+\gamma^2 r_{t+4}...) \mid s_t=s,a_t=a]\\&=\mathbb{E}[r_{t+1}+\gamma G_{t+1} \mid s_t=s,a_t=a]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma\mathbb{E}[G_{t+1} \mid s_{t+1}=s']]\\&=\sum_{s'\in{S}}T(s,a,s')[R(s,a,s')+\gamma V_\pi(s')]\end{aligned}$$
 
 Since we can write $V$ in terms of $Q$:
 
-$$\begin{aligned}V_\pi(s)&=\mathbb{E}[G_t|s_t=s]\\&=\mathbb{E}[G_t|s_t=s,a_t=\pi(s)]\\&=Q_\pi(s,\pi(s))\end{aligned}$$
+$$\begin{aligned}V_\pi(s)&=\mathbb{E}[G_t \mid s_t=s]\\&=\mathbb{E}[G_t \mid s_t=s,a_t=\pi(s)]\\&=Q_\pi(s,\pi(s))\end{aligned}$$
 
 We can build the following Bellman equation for $Q$:
 
